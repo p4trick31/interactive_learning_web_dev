@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<title>Learning Modules</title>
+
+<style>
+
+:root{
+    --primary:#3C6E71;
+    --secondary:#284B63;
+    --text:#010013;
+    --white:#FAF9F6;
+}
+
+body{
+    margin:0;
+    font-family:Inter, sans-serif;
+    background:var(--white);
+    color:var(--text);
+}
+
+/* PAGE */
+/* PAGE BACKGROUND */
+.learning-page{
+    min-height:100vh;
+    padding:0px 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(60,110,113,.18),
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(40,75,99,.18),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #f8fbfb,
+            #eef4f5,
+            #f6f7fb
+        );
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* MAIN CONTAINER */
+.learning-container{
+    width:100%;
+    max-width:1400px;
+
+    padding:30px;
+
+}
+/* GRID */
+.subject-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:25px;
+    max-width:1000px;
+    margin:auto;
+}
+
+/* CARD */
+.subject-card{
+    height:220px;
+    border-radius:18px;
+    position:relative;
+    overflow:hidden;
+
+    display:block;
+    padding:18px;
+
+    cursor:pointer;
+    transition:.3s ease;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.10);
+}
+
+/* IMAGE */
+.subject-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    opacity:0.9;
+    z-index:0;
+}
+
+/* OVERLAY */
+.subject-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        180deg,
+        rgba(0,0,0,0.30),
+        rgba(0,0,0,0.65)
+    );
+
+    z-index:1;
+}
+
+/* CONTENT WRAPPER */
+.subject-content{
+    position:relative;
+    z-index:2;
+
+    height:100%;
+    width:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+/* TOP LEFT ICON + TITLE */
+.subject-title{
+    font-size:1.4rem;
+    font-weight:800;
+    color:#fff;
+    text-shadow:0 3px 10px rgba(0,0,0,0.7);
+    align-self:flex-start;
+}
+
+.subject-content i{
+    font-size:2rem;
+    color:#fff;
+    align-self:flex-start;
+    margin-bottom:5px;
+}
+
+/* DESCRIPTION */
+.subject-desc{
+    font-size: .9rem;
+    color: #ffffff;   /* FIXED WHITE COLOR */
+
+    opacity: 0.9;     /* soft modern look */
+}
+/* HEADER */
+.page-header{
+    padding:10px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 18px;
+    border-radius:12px;
+
+    background:#ffffff;
+    color:var(--secondary);
+
+    text-decoration:none;
+    font-weight:700;
+
+    border:1px solid rgba(60,110,113,.15);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s ease;
+
+    flex-shrink:0;
+}
+
+.back-btn:hover{
+    background:var(--primary);
+    color:#fff;
+    transform:translateY(-3px);
+}
+
+.back-btn i{
+    font-size:1rem;
+}
+
+/* TITLE */
+.title{
+    flex:1;
+    text-align:left;
+}
+
+.title h1{
+     margin:0;
+    color:var(--secondary);
+    font-size:2rem;
+}
+
+.title p{
+    color:var(--primary);
+    margin-top:8px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .page-header{
+         padding:20px 10px;
+        gap:25px;
+    }
+
+    .back-btn{
+        padding:10px 14px;
+        font-size:.9rem;
+    }
+
+    .title h1{
+        font-size:1.2rem;
+    }
+
+    .title p{
+           font-size:.85rem;
+    }
+}
+/* META */
+.subject-meta{
+    font-size:.75rem;
+    color:rgba(255,255,255,0.85);
+}
+.start-link {
+    align-self: flex-end;
+    margin-top: auto;
+    text-decoration: none;
+}
+/* BUTTON BOTTOM RIGHT */
+.start-btn{
+    align-self:flex-end;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    padding:10px 18px;
+    border-radius:12px;
+    border: none;
+
+    background:#fff;
+    color: var(--secondary);
+
+    font-weight:700;
+    font-size:.9rem;
+
+    cursor:pointer;
+    transition:.25s ease;
+
+    box-shadow:0 8px 20px rgba(60,110,113,.25);
+
+    position:relative;
+    overflow:hidden;
+
+    
+}
+
+/* ICON */
+.start-btn i {
+    font-size:.9rem;
+}
+
+/* HOVER EFFECT */
+.start-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(40,75,99,.35);
+}
+
+/* CLICK EFFECT */
+.start-btn:active{
+    transform:scale(0.97);
+}
+
+/* SHINE EFFECT */
+.start-btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-75%;
+    width:50%;
+    height:100%;
+
+    background:rgba(255,255,255,0.25);
+    transform:skewX(-20deg);
+    transition:.5s;
+
+}
+
+.start-btn:hover::before{
+    left:130%;
+}
+.html-btn i, .html-btn .subject-title{
+    color: #e85a33;
+}
+.css-btn i, .css-btn .subject-title{
+    color: #2793e0;
+}
+.js-btn i, .js-btn .subject-title{
+    color: #e1c706;
+}
+/* BACKGROUNDS */
+.html-btn::before{
+    background-image:url("/media/background/html_bg.png");
+}
+
+.css-btn::before{
+    background-image:url("/media/background/css_bg.png");
+}
+
+.js-btn::before{
+    background-image:url("/media/background/js_bg.png");
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+    .subject-card{
+        height:180px;
+    }
+
+    .subject-title{
+        font-size:1.6rem;
+    }
+}
+/* TOP RIGHT BADGE */
+.module-badge{
+    position:absolute;
+    top:12px;
+    right:12px;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    padding:6px 10px;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(8px);
+
+    color:#fff;
+    font-size:0.75rem;
+    font-weight:700;
+
+    z-index:3;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.module-badge i{
+    font-size:0.85rem;
+    color: #fff;
+}
+</style>
+</head>
+
+<body>
+<div class="learning-page">
+<div class="learning-container">
+<div class="page-header">
+
+    <a href="{% url 'student_dashboard' %}" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <div class="title">
+        <h1>
+            <i class="fa-solid fa-graduation-cap"></i>
+            Choose Learning Path
+        </h1>
+        <p>Start with HTML, CSS, or JavaScript</p>
+    </div>
+
+</div>
+    <div class="subject-grid">
+
+        <!-- HTML -->
+       <div class="subject-card html-btn">
+
+    <!-- TOP RIGHT BADGE -->
+    <div class="module-badge">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>8 Modules</span>
+    </div>
+
+    <div class="subject-content">
+
+        <!-- TOP LEFT ICON + TITLE -->
+        <div>
+            <i class="fa-brands fa-html5"></i>
+            <div class="subject-title">HTML</div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div>
+            <p class="subject-desc">
+                Learn how to structure webpages using elements and semantic HTML.
+            </p>
+
+            <small class="subject-meta">
+                HTML Module Learning Path
+            </small>
+        </div>
+
+        <!-- BUTTON -->
+        <a href="{% url 'html_learning' %}" class="start-link">
+                <button class="start-btn">
+
+    Start Learning    <i class="fa-solid fa-cloud-arrow-up"></i>
+</button>
+        </a>
+
+    </div>
+</div>
+        <!-- CSS -->
+        <div class="subject-card css-btn">
+                <!-- TOP RIGHT BADGE -->
+    <div class="module-badge">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>8 Modules</span>
+    </div>
+            <div class="subject-content">
+
+                <div>
+                    <i class="fa-brands fa-css3-alt"></i>
+                    <div class="subject-title">CSS</div>
+                </div>
+
+                <div>
+                    <p class="subject-desc">
+                        Style websites with layouts, colors, animations, and responsiveness.
+                    </p>
+                    <small class="subject-meta">CSS Module Learning Path</small>
+                </div>
+<a href="{% url 'css_learning' %}" class="start-link">
+        <button class="start-btn">
+
+    Start Learning    <i class="fa-solid fa-cloud-arrow-up"></i>
+</button>
+</a>
+            </div>
+        </div>
+
+        <!-- JS -->
+        <div class="subject-card js-btn">
+                <!-- TOP RIGHT BADGE -->
+    <div class="module-badge">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>10 Modules</span>
+    </div>
+            <div class="subject-content">
+
+                <div>
+                    <i class="fa-brands fa-js"></i>
+                    <div class="subject-title">JavaScript</div>
+                </div>
+
+                <div>
+                    <p class="subject-desc">
+                        Make websites interactive with logic and dynamic behavior.
+                    </p>
+                    <small class="subject-meta">JS Module Learning Path</small>
+                </div>
+<a href="{% url 'js_learning' %}" class="start-link">
+                     <button class="start-btn">
+
+    Start Learning    <i class="fa-solid fa-cloud-arrow-up"></i>
+</button>
+</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+</body>
+</html>

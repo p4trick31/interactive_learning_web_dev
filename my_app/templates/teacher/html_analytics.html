@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>{{ subject }} Analytics</title>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+:root{
+    --primary:#3C6E71;
+    --secondary:#284B63;
+    --text:#010013;
+    --white:#FAF9F6;
+    --border:#E6E9ED;
+    --muted:#64748B;
+    --bg:#F4F7F8;
+    --success:#22C55E;
+    --shadow:0 12px 35px rgba(0,0,0,.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.analytics-page{
+    width:100%;
+    max-width:1600px;
+    margin:auto;
+    padding:35px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.analytics-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+
+    padding:20px 24px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+
+    margin-bottom:24px;
+}.back-btn{
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    background:var(--white);
+    color:var(--secondary);
+
+    text-decoration:none;
+    font-size:16px;
+
+    transition:.25s ease;
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+}
+
+.back-btn:hover{
+    background:var(--primary);
+    color:#fff;
+    border-color:var(--primary);
+    transform:translateX(-2px);
+}
+.page-title{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.page-title h1{
+    font-size:1.9rem;
+    font-weight:700;
+    color:var(--text);
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.page-title h1 i{
+    color:var(--primary);
+}
+
+.page-title p{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:.95rem;
+}
+
+/* =========================
+   SUBJECT NAVIGATION
+========================= */
+
+.subject-nav{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.subject-link{
+    text-decoration:none;
+    color:var(--text);
+
+    background:var(--white);
+
+    padding:14px 22px;
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    border:1px solid var(--border);
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.subject-link i{
+    font-size:1.1rem;
+}
+
+.subject-link:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow);
+}
+
+.subject-link.active{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:16px;
+    margin-bottom:24px;
+}
+
+.stat-card{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:16px 18px;
+    min-height:80px;
+
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 4px 16px rgba(0,0,0,.05);
+
+    transition:.2s ease;
+}
+
+.stat-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.stat-card i{
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    font-size:18px;
+    color:var(--primary);
+    background:rgba(60,110,113,.10);
+
+    flex-shrink:0;
+}
+
+.stat-card div{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    min-width:0;
+}
+
+.stat-card span{
+    font-size:12px;
+    font-weight:500;
+    color:var(--muted);
+    line-height:1.2;
+}
+
+.stat-card strong{
+    font-size:20px;
+    font-weight:700;
+    color:var(--text);
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* =========================
+   TABLE CARD
+========================= */
+
+.table-container{
+    background:var(--white);
+    border-radius:24px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.table-title{
+    padding:22px 28px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    border-bottom:1px solid var(--border);
+
+    font-size:1rem;
+    font-weight:700;
+    color:var(--text);
+}
+
+.table-title i{
+    color:var(--primary);
+}
+.table-actions{
+    position:sticky;
+    top:0;
+    z-index:30;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+
+    padding:10px 20px;
+
+    background:var(--white);
+    border-bottom:1px solid var(--border);
+}
+
+.filter-group{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:10px 14px;
+
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+}
+
+.filter-group i{
+    color:var(--primary);
+    font-size:14px;
+}
+
+.filter-group select{
+    border:none;
+    background:transparent;
+
+    font-size:14px;
+    font-weight:600;
+    color:var(--text);
+
+    outline:none;
+    cursor:pointer;
+}
+/* =========================
+   TABLE SCROLL
+========================= */
+
+.table-wrapper{
+    max-height:600px;
+    overflow:auto;
+    position:relative;
+}
+
+.student-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+}
+
+.student-table thead{
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.student-table thead th{
+    position:sticky;
+    top:0;
+
+    background:var(--white);
+    color:var(--text);
+
+    padding:16px;
+    text-align:left;
+
+    border-bottom:1px solid var(--border);
+
+    font-size:13px;
+    font-weight:700;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+.student-table td{
+    padding:18px 16px;
+    font-size:.92rem;
+    border-bottom:1px solid #F1F5F9;
+    color:var(--text);
+}
+
+.student-table tbody tr{
+    transition:.2s;
+}
+
+.student-table tbody tr:hover{
+    background:#F8FAFC;
+}
+
+/* =========================
+   STUDENT INFO
+========================= */
+
+.student-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.avatar-placeholder{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#EDF2F7;
+    color:#94A3B8;
+}
+
+/* =========================
+   BADGES
+========================= */
+
+.badge-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:7px 14px;
+
+    border-radius:999px;
+
+    background:
+        rgba(60,110,113,.12);
+
+    color:var(--primary);
+
+    font-size:.82rem;
+    font-weight:600;
+}
+
+/* =========================
+   ACTION BUTTON
+========================= */
+
+.action-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    background:var(--primary);
+    color:white;
+
+    text-decoration:none;
+    font-size:.85rem;
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.action-btn:hover{
+    background:var(--secondary);
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-row{
+    text-align:center;
+    padding:55px !important;
+    color:var(--muted);
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+.table-wrapper::-webkit-scrollbar{
+    width:10px;
+    height:10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb{
+    background:#CBD5E1;
+    border-radius:999px;
+}
+
+.table-wrapper::-webkit-scrollbar-track{
+    background:#F8FAFC;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1024px){
+
+    .analytics-page{
+        padding:25px;
+    }
+
+    .table-wrapper{
+        overflow:auto;
+    }
+
+    .student-table{
+        min-width:1000px;
+    }
+}
+
+@media(max-width:768px){
+
+    .analytics-page{
+        padding:18px;
+    }
+
+    .page-title h1{
+        font-size:1.5rem;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .subject-nav{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .subject-link{
+        justify-content:center;
+    }
+
+    .table-wrapper{
+        max-height:500px;
+    }
+}
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:999;
+}
+
+/* =========================
+   MODAL CONTAINER
+========================= */
+.modal-content{
+    width:900px;
+    max-width:95%;
+    max-height:90vh;
+
+    background:var(--white);
+    border-radius:24px;
+    box-shadow:var(--shadow);
+
+    display:flex;
+    flex-direction:column;
+    overflow-y: auto;
+
+    animation:modalPop .25s ease;
+}
+
+@keyframes modalPop{
+    from{
+        transform:translateY(-20px) scale(.98);
+        opacity:0;
+    }
+    to{
+        transform:translateY(0) scale(1);
+        opacity:1;
+    }
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+.modal-close{
+    position:absolute;
+    right: 250px;
+    top: 50px;
+
+    border: none;
+    background:var(--bg);
+    color:var(--secondary);
+
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    
+
+    cursor:pointer;
+    z-index:1000;
+}
+@media(max-width:480px){
+    .modal-close{
+         right: 300px;
+
+    }
+
+}
+/* =========================
+   HEADER (STICKY TOP AREA)
+========================= */
+.modal-header-row{
+    position:sticky;
+    top:0;
+    z-index:20;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+
+    padding:14px 18px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+  
+}
+
+/* TITLE */
+.modal-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-weight:800;
+    color:var(--text);
+}
+
+.modal-title .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:var(--primary);
+    box-shadow:0 0 10px rgba(60,110,113,.35);
+}
+
+/* =========================
+   PROFILE BLOCK
+========================= */
+.modal-profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.avatar-img,
+.avatar-fallback{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--primary);
+    color:#fff;
+}
+
+.modal-profile .name{
+    font-weight:700;
+    font-size:14px;
+    color:var(--text);
+}
+
+.modal-profile .meta{
+    font-size:12px;
+    color:var(--muted);
+}
+
+/* =========================
+   DIFFICULTY BUTTONS (STICKY)
+========================= */
+.modal-diff-buttons{
+    position:sticky;
+    top:68px;
+    z-index:15;
+
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+
+    padding:10px 18px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+      margin-right: 20px;
+
+}
+
+/* BUTTON */
+.diff-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    padding:8px 12px;
+    border-radius:10px;
+
+    border:1px solid var(--border);
+    background:transparent;
+
+    font-size:13px;
+    color:var(--muted);
+
+    cursor:pointer;
+    transition:.2s;
+}
+
+.diff-btn i{
+    color:var(--primary);
+}
+
+.diff-btn:hover{
+    border-color:var(--primary);
+    color:var(--primary);
+    background:rgba(60,110,113,.08);
+}
+
+.diff-btn.active-diff{
+    background:var(--primary);
+    color:#fff;
+    border-color:var(--primary);
+}
+.diff-btn.active-diff i{
+    color:#fff;
+}
+/* =========================
+   SCROLLABLE BODY (ONLY THIS SCROLLS)
+========================= */
+#quizHistoryBody{
+    flex:1;
+    overflow-y:auto;
+    padding:0px;
+    background:#fff;
+}
+
+/* =========================
+   QUIZ CARD (SAAS CLEAN STYLE)
+========================= */
+.lesson-content.quiz-card{
+    display:flex;
+    flex-direction:column;
+
+    background:var(--white);
+    border-radius:18px;
+}
+
+/* HEADER INSIDE CARD */
+/* =========================
+   STICKY HEADER (QUIZ TITLE)
+========================= */
+.lesson-header{
+    position: sticky;
+    top: 0;
+    z-index: 30;
+
+    background:#fff;
+    border-bottom:1px solid var(--border);
+
+    padding:14px 18px;
+}
+
+/* MAIN ROW */
+.header-main{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+}
+
+/* TITLE SECTION */
+.header-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:15px;
+    font-weight:800;
+    color:var(--text);
+
+    white-space:nowrap;
+}
+
+.header-title i{
+    font-size:18px;
+    color:var(--primary);
+}
+
+/* METRICS */
+.header-metrics{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+/* EACH METRIC */
+.metric{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+
+    padding:6px 10px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    background:var(--bg);
+}
+
+/* ICONS */
+.metric i{
+    font-size:14px;
+    color:var(--primary);
+}
+
+/* =========================
+   STICKY COVER (DIFFICULTY BAR)
+========================= */
+.lesson-cover{
+    position: sticky;
+    top: 55px; /* adjust depending on your lesson-header height */
+    z-index: 25;
+
+    background: linear-gradient(135deg, #3C6E71, #284B63);
+    color: #fff;
+
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    flex-shrink: 0;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+.cover-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.cover-left i{
+    font-size:28px;
+}
+
+.feedback-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:10px 14px;
+
+    border:none;
+    border-radius:12px;
+
+    background:rgba(255,255,255,.15);
+    color:#fff;
+
+    backdrop-filter:blur(10px);
+
+    font-size:13px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.feedback-btn:hover{
+    background:#fff;
+    color:var(--secondary);
+    transform:translateY(-2px);
+}
+.feedback-modal-content{
+    width:500px;
+    max-width:95%;
+
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+}
+
+.feedback-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.feedback-header h3{
+    margin:0;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:18px;
+    color:var(--text);
+}
+
+#feedbackText{
+    width:100%;
+    min-height:180px;
+
+    border:none;
+    outline:none;
+    resize:none;
+
+    padding:18px;
+
+    font-size:14px;
+    color:var(--text);
+    background:var(--bg);
+}
+
+.save-feedback-btn{
+    margin:18px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 18px;
+
+    border:none;
+    border-radius:12px;
+
+    background:var(--primary);
+    color:#fff;
+
+    font-weight:600;
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.save-feedback-btn:hover{
+    background:var(--secondary);
+}
+/* BODY */
+.lesson-body{
+    padding:14px;
+}
+
+/* QUESTIONS */
+.question-item{
+    padding:12px;
+    margin-bottom:10px;
+
+    border:1px solid var(--border);
+    border-radius:12px;
+
+    background:#fff;
+}
+
+/* CODE */
+.code-block{
+    background:#0b1220;        /* darker clean navy */
+    color:#ffffff;             /* white text */
+
+    padding:14px;
+    border-radius:12px;
+
+    font-family:monospace;
+    font-size:13px;
+    line-height:1.6;
+
+    overflow-x:auto;
+    margin-top:10px;
+
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+/* optional subtle highlight */
+.code-block span.blank{
+    color:#ffcc66;
+    font-weight:700;
+}
+.choices-box{
+    margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.choice-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 10px;
+    border:1px solid var(--border);
+    border-radius:10px;
+
+    font-size:13px;
+    color:var(--text);
+    background:#fff;
+}
+
+.correct-choice{
+    border-color:var(--success);
+    background:rgba(34,197,94,.08);
+}
+
+
+.answer-line{
+    margin-top:10px;
+    margin-bottom: 10px;
+    font-size:15px;
+    font-weight: bold!important;
+    color:var(--muted);
+}
+
+.result-line{
+    margin-top:6px;
+    font-weight:600;
+    font-size:13px;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.result-line.correct{
+    color:var(--success);
+}
+
+.result-line.wrong{
+    color:#EF4444;
+}
+
+.explanation-box{
+    margin-top:10px;
+    padding:10px;
+
+    background:#F4F7F8;
+    border-left:3px solid var(--primary);
+    border-radius:8px;
+    font-size: 800;
+    font-size:15px;
+    color:var(--secondary);
+
+    display:flex;
+    gap:8px;
+    align-items:flex-start;
+}
+</style>
+
+</head>
+<body>
+
+<div class="analytics-page">
+
+<div class="analytics-toolbar">
+
+    <div class="page-title">
+         <a href="{% url 'teacher_dashboard' %}" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <div>
+        <h1>
+            <i class="fa-solid fa-chart-line"></i>
+            {{ subject }} Analytics
+        </h1>
+
+        <p>
+            Monitor student performance and quiz attempts.
+        </p>
+        </div>
+    </div>
+
+    <div class="subject-nav">
+            <a href="{% url 'overall_analytics' %}" class="subject-link">
+                <i class="fa-solid fa-chart-line"></i> Overall
+        </a>
+
+        <a
+        href="{% url 'html_analytics' %}"
+        class="subject-link {% if subject == 'HTML' %}active{% endif %}">
+            <i class="fa-brands fa-html5"></i>
+            HTML
+        </a>
+
+        <a
+        href="{% url 'css_analytics' %}"
+        class="subject-link {% if subject == 'CSS' %}active{% endif %}">
+            <i class="fa-brands fa-css3-alt"></i>
+            CSS
+        </a>
+
+        <a
+        href="{% url 'js_analytics' %}"
+        class="subject-link {% if subject == 'JavaScript' %}active{% endif %}">
+            <i class="fa-brands fa-js"></i>
+            JavaScript
+        </a>
+
+    </div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <i class="fa-solid fa-users"></i>
+        <div>
+            <span>Students Attempted</span>
+            <strong>{{ students_count }}</strong>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-list-check"></i>
+        <div>
+            <span>Total Attempts</span>
+            <strong>{{ total_attempts }}</strong>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-trophy"></i>
+        <div>
+            <span>Top Score Quiz</span>
+            <strong>{{ top_score|floatformat:2 }}%</strong>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-user-graduate"></i>
+        <div>
+            <span>Top Performer</span>
+            <strong>
+                {% if top_performer %}
+                    {{ top_performer.student__student_profile__first_name }}
+                    {{ top_performer.student__student_profile__last_name }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </strong>
+        </div>
+    </div>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="table-container">
+
+<div class="table-actions">
+    <div class="table-title">
+        <i class="fa-solid fa-table-list"></i>
+        Student Quiz Records
+    </div>
+    <div class="filter-group">
+        <i class="fa-solid fa-filter"></i>
+
+        <div class="filters">
+
+    <select id="courseFilter" onchange="filterStudents()">
+        <option value="ALL">All Courses</option>
+        <option value="BSIS">BSIS</option>
+        <option value="BSCS">BSCS</option>
+        <option value="BSCE">BSCE</option>
+    </select>
+
+    <select id="yearFilter" onchange="filterStudents()">
+        <option value="ALL">All Years</option>
+        <option value="1st Year">1st Year</option>
+        <option value="2nd Year">2nd Year</option>
+        <option value="3rd Year">3rd Year</option>
+        <option value="4th Year">4th Year</option>
+        <option value="5th Year">5th Year</option>
+    </select>
+
+</div>
+    </div>
+
+
+
+</div>
+    
+    <div class="table-wrapper">
+
+    <table class="student-table">
+
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Student</th>
+                <th>Course & Year</th>
+                <th>Quizzes Taken</th>
+                <th>Average Accuracy</th>
+                <th>Last Attempt</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+                        <tr id="noCourseDataRow" style="display:none;">
+    <td colspan="7" class="empty-row">
+        No student records found for this course.
+    </td>
+</tr>
+
+        {% for h in histories %}
+        <tr>
+
+            <td>{{ forloop.counter }}</td>
+
+            <td>
+                <div class="student-info">
+
+                    {% if h.student__student_profile__profile_picture %}
+                        <img src="/media/{{ h.student__student_profile__profile_picture }}" class="avatar">
+                    {% else %}
+                        <div class="avatar-placeholder">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    {% endif %}
+
+                    <div>
+                        <strong>
+                            {{ h.student__student_profile__first_name }}
+                            {{ h.student__student_profile__last_name }}
+                        </strong>
+
+                        <div>
+                            {{ h.student__student_profile__student_id }}
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+
+<td
+    class="course-cell"
+    data-course="{{ h.student__student_profile__course }}"
+    data-year="{{ h.student__student_profile__year_level }}"
+>
+
+    {{ h.student__student_profile__course }} -
+    {{ h.student__student_profile__year_level }}
+
+</td>
+            <td>
+                {{ h.attempts }}
+            </td>
+
+            <td>
+                {{ h.avg_score|floatformat:2 }}%
+            </td>
+
+            <td>
+                {{ h.latest_attempt|date:"M d, Y" }}
+            </td>
+
+            <td>
+
+                <button
+                    class="action-btn"
+                    onclick="openQuizModal({{ h.student }}, '{{ subject|escapejs }}')">
+
+                    <i class="fa-solid fa-eye"></i>
+                    View Quiz Data
+                </button>
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="7" class="empty-row">
+                No student records found.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div id="quizModal" class="modal">
+
+    <div class="modal-content">
+
+    <button class="modal-close" onclick="closeQuizModal()">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div id="studentName"></div>
+    <div id="studentInfo"></div>
+    <div id="difficultyButtons" class="difficulty-buttons"></div>
+
+    <div id="quizHistoryBody"></div>
+
+</div>
+
+</div>
+
+<div id="feedbackModal" class="modal">
+
+    <div class="feedback-modal-content">
+
+        <div class="feedback-header">
+
+            <h3>
+                <i class="fa-solid fa-comment-dots"></i>
+                Teacher Feedback
+            </h3>
+
+
+        </div>
+
+        <textarea
+            id="feedbackText"
+            placeholder="Enter feedback for this student's quiz performance...">
+        </textarea>
+
+        <button class="save-feedback-btn" id="saveFeedbackBtn" onclick="saveFeedback()">
+    <i class="fa-solid fa-paper-plane"></i>
+    Save Feedback
+</button>
+
+    </div>
+
+</div>
+<script>
+    function formatCodeSnippet(code) {
+    if (!code) return "";
+
+    return escapeHtml(code)
+        .replaceAll("[[BLANK]]", "______");
+}
+    function escapeHtml(text) {
+    if (!text) return "";
+    return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+}
+function openQuizModal(studentId, subject) {
+    document.getElementById("quizModal").style.display = "flex";
+
+    fetch(`/teacher/student-history/${studentId}/?subject=${subject}`)
+        .then(response => response.json())
+        .then(data => {
+
+            const btns = document.getElementById("difficultyButtons");
+            const body = document.getElementById("quizHistoryBody");
+
+            btns.innerHTML = "";
+            body.innerHTML = "";
+
+          const first = data.histories[0];
+
+const fullName =
+    `${first.student_first_name} ${first.student_last_name}`;
+
+const studentCode = first.student_id;
+const course = first.course;
+const profilePic = first.profile_picture;
+document.getElementById("studentName").innerHTML = `
+<div class="modal-header-row">
+
+    <!-- TITLE -->
+    <div class="modal-title">
+        <div class="dot"></div>
+        <span>Quiz History</span>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="modal-profile">
+        ${profilePic ? `
+            <img src="${profilePic}" class="avatar-img">
+        ` : `
+            <div class="avatar-fallback">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        `}
+
+        <div>
+            <div class="name">${fullName}</div>
+            <div class="meta">ID: ${studentCode} • ${course}</div>
+        </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="modal-diff-buttons">
+        ${data.histories.map((history, index) => `
+            <button
+                class="diff-btn ${index === 0 ? 'active-diff' : ''}"
+                onclick="showQuiz(${history.id}, this)">
+
+                <i class="fa-solid ${
+                    history.difficulty.toLowerCase() === 'hard'
+                        ? 'fa-fire'
+                        : history.difficulty.toLowerCase() === 'medium'
+                        ? 'fa-layer-group'
+                        : 'fa-seedling'
+                }"></i>
+
+                <span>${escapeHtml(history.difficulty)}</span>
+            </button>
+        `).join("")}
+    </div>
+
+</div>
+`;
+
+            // BUILD QUIZ CARDS
+            body.innerHTML = data.histories.map((history, index) => `
+
+<div class="lesson-content quiz-card"
+     id="quiz-${history.id}"
+     style="display:${index === 0 ? 'flex' : 'none'}">
+
+    <!-- HEADER -->
+<div class="lesson-header">
+
+    <div class="header-main">
+
+        <!-- QUIZ TITLE -->
+        <div class="header-title">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span>${escapeHtml(history.quiz)}</span>
+        </div>
+
+        <!-- METRICS -->
+        <div class="header-metrics">
+
+            <div class="metric">
+                <i class="fa-solid fa-chart-line"></i>
+                Accuracy<span>${history.score}%</span>
+            </div>
+
+            <div class="metric">
+                <i class="fa-solid fa-circle-check"></i>
+               Scored <span>${history.correct}/${history.total}</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- COVER -->
+<div class="lesson-cover">
+
+    <div class="cover-left">
+        <i class="fa-solid fa-clipboard-list"></i>
+
+        <div>
+            <h3>${escapeHtml(history.difficulty)} Level</h3>
+            <p>Evaluate student understanding and quiz performance insights</p>
+        </div>
+    </div>
+
+<button
+    id="feedback-btn-${history.id}"
+    class="feedback-btn"
+    onclick="openFeedbackModal(${history.id})">
+
+    ${history.has_feedback ? `
+        <i class="fa-solid fa-circle-check"></i>
+        Feedback Added
+    ` : `
+        <i class="fa-solid fa-comment-dots"></i>
+        Add Feedback
+    `}
+
+</button>
+
+</div>
+
+    <!-- BODY -->
+    <div class="lesson-body">
+
+${history.answers.map(answer => `
+
+    <div class="question-item">
+
+        <!-- QUESTION -->
+        <strong>
+            ${escapeHtml(answer.question)}
+        </strong>
+
+        <!-- CODE SNIPPET -->
+      ${answer.code_snippet ? `
+    <pre class="code-block">
+${formatCodeSnippet(answer.code_snippet)}
+    </pre>
+` : ""}
+
+        <!-- MCQ CHOICES -->
+        ${answer.choices ? `
+            <div class="choices-box">
+                ${answer.choices.map(choice => `
+                    <div class="choice-item ${choice.is_correct ? 'correct-choice' : ''}">
+                        <i class="fa-solid ${choice.is_correct ? 'fa-check-circle' : 'fa-circle'}"></i>
+                        <span>${escapeHtml(choice.choice_text)}</span>
+                    </div>
+                `).join("")}
+            </div>
+        ` : ""}
+
+        <!-- ANSWER -->
+     <p class="answer-line">
+    <b>Student Answer:</b>
+    <span style="
+        color:${answer.selected ? '#010013' : '#EF4444'};
+        font-weight:500;
+    ">
+        ${answer.selected ? escapeHtml(answer.selected) : "No Answer"}
+    </span>
+</p>
+
+        <!-- RESULT -->
+        <p class="result-line ${answer.correct ? 'correct' : 'wrong'}">
+            <i class="fa-solid ${answer.correct ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
+            ${answer.correct ? "Correct" : "Incorrect"}
+        </p>
+
+        <!-- EXPLANATION -->
+        ${answer.explanation ? `
+            <div class="explanation-box">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>${escapeHtml(answer.explanation)}</span>
+            </div>
+        ` : ""}
+
+    </div>
+
+`).join("")}
+
+</div>
+
+</div>
+
+`).join("");
+  setTimeout(() => {
+                if (content) content.scrollTop = 0;
+            }, 0);
+        });
+   
+}
+
+function showQuiz(id, btn) {
+
+    // hide all quizzes
+    document.querySelectorAll(".quiz-card")
+        .forEach(card => {
+            card.style.display = "none";
+        });
+
+    // show selected quiz
+    const active = document.getElementById(`quiz-${id}`);
+    if (active) active.style.display = "block";
+
+    // remove active class from all buttons
+    document.querySelectorAll(".diff-btn")
+        .forEach(b => b.classList.remove("active-diff"));
+
+    // add active class
+    if (btn) btn.classList.add("active-diff");
+    const body = document.getElementById("quizHistoryBody");
+    if (body) {
+        body.scrollTop = 0;
+    }
+
+    // optional: also reset inner scroll areas if needed
+    resetModalScroll();
+}
+
+
+function filterStudents() {
+
+    const selectedCourse =
+        document.getElementById("courseFilter")
+        .value
+        .trim()
+        .toUpperCase();
+
+    const selectedYear =
+        document.getElementById("yearFilter")
+        .value
+        .trim()
+        .toUpperCase();
+
+    const rows =
+        document.querySelectorAll(
+            ".student-table tbody tr"
+        );
+
+    const noDataRow =
+        document.getElementById("noCourseDataRow");
+
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+
+        if (row.id === "noCourseDataRow") {
+            return;
+        }
+
+        const courseCell =
+            row.querySelector(".course-cell");
+
+        if (!courseCell) {
+            row.style.display = "none";
+            return;
+        }
+
+        const course =
+            courseCell.dataset.course
+                .trim()
+                .toUpperCase();
+
+        const year =
+            courseCell.dataset.year
+                .trim()
+                .toUpperCase();
+
+        const matchCourse =
+            selectedCourse === "ALL" ||
+            course === selectedCourse;
+
+        const matchYear =
+            selectedYear === "ALL" ||
+            year === selectedYear;
+
+        const shouldShow =
+            matchCourse && matchYear;
+
+        row.style.display =
+            shouldShow ? "" : "none";
+
+        if (shouldShow) {
+            visibleCount++;
+        }
+    });
+
+    noDataRow.style.display =
+        visibleCount === 0 ? "" : "none";
+}
+function openFeedbackModal(historyId) {
+    const modal = document.getElementById("feedbackModal");
+    const btn = document.getElementById("saveFeedbackBtn");
+    const textarea = document.getElementById("feedbackText");
+
+    // Open modal
+    modal.style.display = "flex";
+    modal.dataset.historyId = historyId;
+
+    // Reset modal state
+    textarea.value = "";
+    btn.disabled = false;
+    btn.innerHTML = `
+        <i class="fa-solid fa-paper-plane"></i>
+        Save Feedback
+    `;
+
+    // Get THIS TEACHER'S feedback
+    fetch(`/feedback/get/${historyId}/`)
+        .then(response => response.json())
+        .then(data => {
+
+            if (!data.success) return;
+
+            if (data.exists) {
+                textarea.value = data.message;
+
+                btn.innerHTML = `
+                    <i class="fa-solid fa-check"></i>
+                    Update Feedback
+                `;
+            }
+        })
+        .catch(error => {
+            console.log("Error loading feedback:", error);
+        });
+}
+function closeFeedbackModal() {
+    document.getElementById("feedbackModal").style.display = "none";
+}
+function closeQuizModal() {
+    const modal = document.getElementById("quizModal");
+
+    document.querySelectorAll(".diff-btn")
+        .forEach(b => b.classList.remove("active-diff"));
+
+    resetModalScroll(); // ✅ IMPORTANT
+
+    modal.style.display = "none";
+
+    closeFeedbackModal();
+}
+document.getElementById("quizModal").onclick = function (e) {
+    if (e.target === this) {
+        closeQuizModal();
+    }
+};
+document.getElementById("feedbackModal").onclick = function (e) {
+    if (e.target === this) {
+        closeFeedbackModal()
+    }
+};
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}function saveFeedback() {
+
+    const modal = document.getElementById("feedbackModal");
+    const historyId = modal.dataset.historyId;
+
+    const message = document.getElementById("feedbackText").value;
+
+    fetch(`/feedback/save/${historyId}/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")
+        },
+        body: JSON.stringify({ message })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if (data.success) {
+
+            const btn = document.getElementById("saveFeedbackBtn");
+
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved';
+            btn.disabled = true;
+
+            // ✅ UPDATE MAIN BUTTON IMMEDIATELY
+            const feedbackBtn = document.getElementById(`feedback-btn-${historyId}`);
+
+            if (feedbackBtn) {
+                feedbackBtn.innerHTML = `
+                    <i class="fa-solid fa-circle-check"></i>
+                    Feedback Added
+                `;
+            }
+
+            setTimeout(() => {
+                closeFeedbackModal();
+
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Save Feedback';
+                btn.disabled = false;
+            }, 1200);
+        }
+    });
+}
+function resetModalScroll() {
+    console.log("click")
+    const modalContent = document.querySelector(".modal-content");
+
+    if (modalContent) {
+        modalContent.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+    }
+    const body = document.getElementById("quizHistoryBody");
+    if (body) {
+        body.scrollTop = 0;
+    }
+}
+</script>
+</body>
+</html>

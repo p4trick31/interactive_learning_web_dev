@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<title>CSS Learning Modules</title>
+
+<style>
+
+:root{
+    --primary:#3C6E71;
+    --secondary:#284B63;
+    --text:#010013;
+    --white:#FAF9F6;
+}
+
+body{
+    margin:0;
+    font-family:Inter, sans-serif;
+    background:var(--white);
+    color:var(--text);
+}
+
+/* HEADER */
+/* HEADER */
+.header{
+    padding:30px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 18px;
+    border-radius:12px;
+
+    background:#ffffff;
+    color:var(--secondary);
+
+    text-decoration:none;
+    font-weight:700;
+
+    border:1px solid rgba(60,110,113,.15);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s ease;
+
+    flex-shrink:0;
+}
+
+.back-btn:hover{
+    background:var(--primary);
+    color:#fff;
+    transform:translateY(-3px);
+}
+
+.back-btn i{
+    font-size:1rem;
+}
+
+/* TITLE */
+.header-content{
+    flex:1;
+    text-align:left;
+}
+
+.header-content h1{
+    margin:0;
+    color:#1572B6;
+    font-size:2rem;
+}
+
+.header-content p{
+    color:var(--primary);
+    margin-top:8px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .header{
+        padding:20px;
+        gap:15px;
+    }
+
+    .back-btn{
+        padding:10px 14px;
+        font-size:.9rem;
+    }
+
+    .header-content h1{
+        font-size:1.3rem;
+    }
+
+    .header-content p{
+        font-size:.85rem;
+    }
+}
+/* GRID */
+.module-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:18px;
+    padding:30px;
+}
+
+/* CARD */
+.module-card{
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:180px;
+    border-top:4px solid #1572B6;
+}
+
+.module-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 25px rgba(0,0,0,.12);
+}
+
+/* ICON */
+.module-icon{
+    font-size:1.8rem;
+    color:#1572B6;
+    margin-bottom:10px;
+}
+
+/* TITLE */
+.module-title{
+    font-weight:800;
+    font-size:1rem;
+    color:#1572B6;
+}
+
+/* DESCRIPTION */
+.module-desc{
+    font-size:.85rem;
+    color:var(--text);
+    opacity:0.8;
+    margin:10px 0;
+    line-height:1.4;
+}
+
+/* BUTTON */
+.start-btn{
+    margin-top:auto;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.start-btn:hover{
+    background:var(--secondary);
+    transform:scale(1.03);
+}
+
+/* EMPTY STATE */
+.empty{
+    text-align:center;
+    padding:40px;
+    color:var(--primary);
+    opacity:0.7;
+}
+
+/* TABLET */
+@media (max-width: 1200px){
+    .module-grid{
+        grid-template-columns:repeat(3, 1fr);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+    .module-grid{
+        grid-template-columns:repeat(2, 1fr);
+        padding:15px;
+        gap:14px;
+    }
+
+    .module-card{
+        min-height:160px;
+        padding:14px;
+    }
+
+    .module-title{
+        font-size:0.95rem;
+    }
+
+    .module-desc{
+        font-size:0.75rem;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px){
+    .module-grid{
+        grid-template-columns:repeat(2, 1fr);
+        gap:12px;
+    }
+
+    .module-card{
+        min-height:150px;
+        padding:12px;
+    }
+
+    .start-btn{
+        padding:8px;
+        font-size:0.8rem;
+    }
+}
+.lesson-modal{
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 30px 20px;
+
+    background:
+        linear-gradient(
+            rgba(1, 0, 19, 0.65),
+            rgba(40, 75, 99, 0.75)
+        );
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    overflow-y: auto;
+
+    z-index: 9999;
+}
+
+.lesson-modal.show{
+    display: flex;
+    animation: fadeIn .25s ease;
+}
+
+.lesson-content{
+    width: 100%;
+    max-width: 850px;
+    min-height: 450px;
+    max-height: calc(100vh - 140px);
+
+    background: rgba(250, 249, 246, 0.98);
+
+    border-radius: 24px;
+    padding: 5px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.25),
+        0 8px 20px rgba(0,0,0,.12);
+
+    border: 1px solid rgba(255,255,255,.6);
+
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+
+    animation: modalPop .3s ease;
+}
+
+.lesson-modal.show{
+    display:flex;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes modalPop{
+    from{
+        opacity:0;
+        transform:translateY(-25px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}.lesson-header{
+    position:sticky;
+    top:0;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #D9D9D9;
+
+    z-index:100;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.05);
+}
+
+.header-info h2{
+    margin:0;
+    color:#1572B6;
+    font-size:1.4rem;
+    font-weight:800;
+}
+
+.lesson-subtitle{
+    font-size:.85rem;
+    color:#3C6E71;
+}
+
+/* CLOSE BUTTON */
+.lesson-close{
+    width:42px;
+    height:42px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#f3f4f6;
+    color:#284B63;
+
+    cursor:pointer;
+    transition:.25s;
+}
+
+.lesson-close:hover{
+    background:#3C6E71;
+    color:#fff;
+}
+
+/* COVER SECTION */
+.lesson-cover{
+    background:
+        linear-gradient(
+            135deg,
+            #3C6E71,
+            #284B63
+        );
+
+    color:#fff;
+
+    padding: 10px;
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    flex-shrink:0;
+}
+
+.lesson-cover i{
+    font-size:3rem;
+}
+
+.lesson-cover h3{
+    margin:0;
+    font-size:1.3rem;
+}
+
+.lesson-cover p{
+    margin-top:6px;
+    opacity:.9;
+}
+
+/* BODY SCROLLS */
+/* Scrollable lesson body */
+.lesson-body{
+    overflow-y:auto;
+    flex:1;
+    padding:10px;
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #3C6E71 #eef3f3;
+}
+
+/* Chrome, Edge, Safari */
+.lesson-body::-webkit-scrollbar{
+    width:10px;
+}
+
+.lesson-body::-webkit-scrollbar-track{
+    background:#eef3f3;
+    border-radius:50px;
+}
+
+.lesson-body::-webkit-scrollbar-thumb{
+    background:linear-gradient(
+        180deg,
+        #3C6E71,
+        #284B63
+    );
+    border-radius:50px;
+    border:2px solid #eef3f3;
+
+    transition:.3s ease;
+}
+
+.lesson-body::-webkit-scrollbar-thumb:hover{
+    background:linear-gradient(
+        180deg,
+        #4d8488,
+        #355d78
+    );
+}
+
+.lesson-body::-webkit-scrollbar-corner{
+    background:transparent;
+}
+#lessonTitle{
+    color:#f7f7f7;
+}
+
+#lessonCode{
+    background:#f7f7f7;
+    padding:15px;
+    border-radius:12px;
+    overflow:auto;
+    white-space:pre-wrap;
+}
+
+.practice-box{
+    margin-top:20px;
+    padding:18px 20px;
+
+    background:#f8fafb;
+    border-left:5px solid #3C6E71;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* TITLE */
+.practice-box h4{
+    margin:0 0 10px 0;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:1rem;
+    color:#284B63;
+}
+
+/* ICON */
+.practice-box h4 i{
+    color:#3C6E71;
+    font-size:1.1rem;
+}
+
+/* TEXT */
+#lessonPractice{
+    margin:0;
+
+    font-size:.9rem;
+    color:#333;
+    line-height:1.6;
+
+    background:#ffffff;
+    padding:12px 14px;
+    border-radius:10px;
+
+    border:1px solid #e6e6e6;
+}
+
+.docs-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:12px 14px;
+    margin-top:18px;
+
+    border-radius:12px;
+    background:#f5f7f9;
+
+    border:1px solid #e6e6e6;
+
+    text-decoration:none;
+    color:#284B63;
+
+    transition:.25s ease;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.docs-link:hover{
+    transform:translateY(-2px);
+    background:#eef6f6;
+}
+
+/* ICON */
+.docs-link i{
+    font-size:1.2rem;
+    color:#3C6E71;
+}
+
+/* TEXT CONTAINER */
+.link-content{
+    display:flex;
+    flex-direction:column;
+}
+
+/* MAIN TITLE */
+.link-title{
+    font-weight:700;
+    font-size:.95rem;
+}
+
+/* URL TEXT */
+.link-url{
+    font-size:.75rem;
+    color:#777;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    max-width:260px;
+}
+
+.lesson-actions{
+    margin-top:30px;
+
+    display:flex;
+    justify-content:space-between;
+}
+/* SECTION CARD */
+.lesson-section{
+    background:#fff;
+    border:1px solid rgba(60,110,113,.12);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 8px 25px rgba(0,0,0,.04);
+    margin: 0;
+}
+
+/* HEADER */
+.section-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:18px;
+}
+
+/* ICON BOX */
+.section-icon{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.explanation-icon{
+    background:rgba(60,110,113,.12);
+    color:#3C6E71;
+}
+
+.section-icon i{
+    font-size:1.2rem;
+}
+/* CODE CONTAINER */
+.code-card{
+    margin-top:25px;
+    border-radius:18px;
+    overflow:hidden;
+
+    background:#1e1e1e;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.15);
+}
+
+/* HEADER */
+.code-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 18px;
+
+    background:#252526;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+/* TITLE */
+.code-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    color:#ffffff;
+    font-size:.9rem;
+    font-weight:600;
+}
+
+.code-title i{
+    color:#61dafb;
+}
+
+/* MAC STYLE DOTS */
+.code-dots{
+    display:flex;
+    gap:7px;
+}
+
+.code-dots span{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+}
+
+.code-dots span:nth-child(1){
+    background:#ff5f56;
+}
+
+.code-dots span:nth-child(2){
+    background:#ffbd2e;
+}
+
+.code-dots span:nth-child(3){
+    background:#27c93f;
+}
+
+.code-block{
+    margin:0;
+    padding:25px;
+
+    background:#1e1e1e !important;
+    color:#e5e5e5 !important;         /* SAME DARK COLOR → text disappears */
+
+    font-family:"Fira Code","Consolas",monospace;
+    font-size:.95rem;
+    line-height:1.8;
+
+    /* KEY FIX */
+    white-space: pre-wrap;     /* keeps formatting but normalizes spacing */
+    word-break: normal;
+
+    tab-size: 4;
+
+    overflow-x:auto;
+
+    display:block;
+}
+
+/* SCROLLBAR */
+.code-block::-webkit-scrollbar{
+    height:8px;
+}
+
+.code-block::-webkit-scrollbar-track{
+    background:#2d2d2d;
+}
+
+.code-block::-webkit-scrollbar-thumb{
+    background:#3C6E71;
+    border-radius:50px;
+}
+.code-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* COPY BUTTON */
+.copy-btn{
+    background:#3C6E71;
+    color:#fff;
+    border:none;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:.75rem;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    transition:.3s ease;
+}
+
+.copy-btn:hover{
+    background:#284B63;
+    transform:scale(1.05);
+}
+
+.copy-btn i{
+    font-size:.8rem;
+}
+
+/* TITLE */
+.section-header h4{
+    margin:0;
+    color:#284B63;
+    font-size:1rem;
+    font-weight:700;
+}
+
+.section-header small{
+    color:#7a7a7a;
+    font-size:.8rem;
+}
+
+/* EXPLANATION TEXT */
+.lesson-text{
+    color:#353535;
+    font-size:0.96rem;
+    line-height:1.8;
+    letter-spacing:.2px;
+}
+
+/* Optional highlight effect */
+.explanation-card{
+    background:linear-gradient(
+        180deg,
+        #ffffff,
+        #fbfcfc
+    );
+}
+.nav-btn{
+    border:none;
+    padding:12px 20px;
+
+    background:#3C6E71;
+    color:#fff;
+    border-radius:10px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <a href="{% url 'learning_modules' %}" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+
+    </a>
+
+    <div class="header-content">
+ <h1>
+    <i class="fa-brands fa-css3-alt"></i>
+    CSS Learning Modules
+</h1>
+<p>Learn how to style and design modern, responsive webpages using CSS.</p>
+    </div>
+
+</div>
+<!-- GRID -->
+<div class="module-grid">
+
+    {% for module in modules %}
+        <div class="module-card">
+
+            <div class="module-icon">
+              <i class="fa-brands fa-css3-alt"></i>
+            </div>
+
+            <div class="module-title">
+                {{ module.title }}
+            </div>
+
+            <div class="module-desc">
+                {{ module.description }}
+            </div>
+
+        
+        <button
+    class="start-btn"
+    onclick="openLessonModal(this)"
+    data-module="{{ module.title }}"
+    data-lessons='[
+        {% for lesson in module.lessons.all %}
+        {
+            "title":"{{ lesson.title|escapejs }}",
+            "explanation":"{{ lesson.explanation|escapejs }}",
+            "code":"{{ lesson.code_snippet|escapejs }}",
+            "practice":"{{ lesson.practice_activity|escapejs }}",
+            "link":"{{ lesson.documentation_link }}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]'
+>
+    Start Learning
+</button>
+          
+
+        </div>
+    {% empty %}
+        <div class="empty">
+            No CSS modules available yet.
+        </div>
+    {% endfor %}
+
+</div>
+<div id="lessonModal" class="lesson-modal">
+<div class="lesson-content">
+
+    <!-- STICKY HEADER -->
+    <div class="lesson-header">
+
+        <div class="header-info">
+            <h2 id="modalModuleTitle"></h2>
+            <span class="lesson-subtitle">
+                Interactive Learning Module
+            </span>
+        </div>
+
+        <button
+            class="lesson-close"
+            onclick="closeLessonModal()"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    <!-- COVER -->
+    <div class="lesson-cover">
+
+        <i class="fa-brands fa-css3-alt"></i>
+
+        <div>
+            <h3 id="lessonTitle"></h3>
+            <p>
+                Learn concepts step by step and complete activities.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- SCROLLABLE BODY -->
+    <div class="lesson-body">
+
+        <div class="lesson-section explanation-card">
+    <div class="section-header">
+        <div class="section-icon explanation-icon">
+            <i class="fa-solid fa-book-open"></i>
+        </div>
+
+        <div>
+            <h4>Explanation</h4>
+            <small>Understand the lesson concept</small>
+        </div>
+    </div>
+
+    <div id="lessonExplanation" class="lesson-text"></div>
+</div>  
+
+       <div class="code-card">
+
+   <div class="code-header">
+
+    <div class="code-title">
+        <i class="fa-solid fa-code"></i>
+        <span>Example Code</span>
+    </div>
+
+    <div class="code-actions">
+
+      
+
+        <div class="code-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+          <button class="copy-btn" onclick="copyCode()">
+            <i class="fa-solid fa-copy"></i>
+            Copy
+        </button>
+
+    </div>
+
+</div>
+
+    <pre id="lessonCode" class="code-block"> </pre>
+
+</div>
+
+        <div class="practice-box">
+
+            <h4>
+                <i class="fa-solid fa-pencil"></i>
+                Practice Activity
+            </h4>
+
+            <p id="lessonPractice"></p>
+
+        </div>
+
+      <a
+    id="lessonLink"
+    target="_blank"
+    class="docs-link"
+>
+    <i class="fa-solid fa-book"></i>
+
+    <div class="link-content">
+        <span class="link-title">Open Documentation</span>
+        <span class="link-url" id="lessonLinkText"></span>
+    </div>
+</a>
+
+        <div class="lesson-actions">
+
+            <button
+                id="prevBtn"
+                class="nav-btn"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Previous
+            </button>
+
+            <button
+                id="nextBtn"
+                class="nav-btn"
+            >
+                Next Lesson
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+<script>
+
+let lessons = [];
+let currentLesson = 0;
+
+function openLessonModal(btn){
+
+    lessons = JSON.parse(btn.dataset.lessons);
+    currentLesson = 0;
+
+    document
+        .getElementById("modalModuleTitle")
+        .innerText = btn.closest(".module-card")
+        .querySelector(".module-title")
+        .innerText;
+
+    showLesson();
+
+    document
+        .getElementById("lessonModal")
+        .classList.add("show");
+    resetLessonScroll();
+}
+
+function closeLessonModal(){
+    document
+        .getElementById("lessonModal")
+        .classList.remove("show");
+    resetLessonScroll();
+}
+
+function showLesson(){
+
+    const lesson = lessons[currentLesson];
+
+    document
+        .getElementById("lessonTitle")
+        .innerText = lesson.title;
+
+    document
+        .getElementById("lessonExplanation")
+        .innerText = lesson.explanation;
+
+    document.getElementById("lessonCode").textContent =
+    cleanCode(lesson.code);
+
+    document
+        .getElementById("lessonPractice")
+        .innerText = lesson.practice;
+
+    document
+        .getElementById("lessonLink")
+        .href = lesson.link;
+    document.getElementById("lessonLinkText").innerText = lesson.link;
+
+    document
+        .getElementById("prevBtn")
+        .style.display =
+        currentLesson === 0
+        ? "none"
+        : "inline-block";
+
+    document
+        .getElementById("nextBtn")
+        .style.display =
+        currentLesson === lessons.length - 1
+        ? "none"
+        : "inline-block";
+
+    resetLessonScroll();
+}
+
+document
+    .getElementById("nextBtn")
+    .addEventListener("click", function(){
+
+        currentLesson++;
+
+        showLesson();
+    });
+
+function resetLessonScroll() {
+    const lessonBody = document.querySelector(".lesson-body");
+
+    if (lessonBody) {
+        lessonBody.scrollTop = 0;
+    }
+}
+function cleanCode(code) {
+
+    return code
+        .replace(/\t/g, "   ")     // convert tabs → 4 spaces
+        .replace(/[ \u00A0]+/g, " ") // remove double spaces
+        .replace(/\r/g, "");        // remove weird line breaks
+}
+function copyCode() {
+    const code = document.getElementById("lessonCode").innerText;
+
+    navigator.clipboard.writeText(code).then(() => {
+
+        const btn = document.querySelector(".copy-btn");
+
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+        }, 1500);
+    });
+}
+
+
+document
+    .getElementById("prevBtn")
+    .addEventListener("click", function(){
+
+        currentLesson--;
+
+        showLesson();
+    });
+
+</script>
+</body>
+</html>

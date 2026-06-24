@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Page Title</title>
+    <link rel='stylesheet' href='main.css'>
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    
+
+<style>
+:root{
+    --primary:#3C6E71;
+    --secondary:#284B63;
+    --text:#010013;
+    --white:#FAF9F6;
+}
+body{
+    background:#f4f7f8;
+    color:var(--text);
+    min-height:100vh;
+}
+.dashboard-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+    margin-bottom:32px;
+}
+.teacher-dashboard{
+    max-width:1500px;
+    margin:auto;
+    padding:32px;
+}
+.dashboard-header{
+    margin:0;
+}
+
+.dashboard-header h1{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    font-size:1.8rem;
+    font-weight:700;
+    color:var(--secondary);
+}
+
+.dashboard-header h1 i{
+    color:var(--primary);
+}
+
+.dashboard-header p{
+    margin-top:8px;
+    font-size:.95rem;
+    color:#64748b;
+}
+.stats-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap:16px;
+    margin-bottom:28px;
+}
+
+/* CARD (MEDIUM SIZE) */
+.stat-card{
+    background: rgba(250, 249, 246, 0.9);
+    border: 1px solid rgba(60, 110, 113, 0.15);
+    border-radius: 14px;
+
+    padding: 16px 18px;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    box-shadow: 0 6px 18px rgba(40,75,99,.08);
+
+    transition: all 0.25s ease;
+}
+
+.stat-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(40,75,99,.12);
+}
+
+/* ICON */
+.stat-card i{
+    width:45px;
+    height:45px;
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--white);
+
+    font-size:1.1rem;
+}
+
+/* TEXT */
+.stat-card span{
+    display:block;
+    color: rgba(1, 0, 19, 0.65);
+    font-size:.78rem;
+}
+
+.stat-card strong{
+    display:block;
+    margin-top:3px;
+
+    font-size:1.25rem;
+    font-weight:700;
+
+    color: var(--secondary);
+}
+.table-container{
+      background:rgba(255,255,255,.9);
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+.table-title{
+    position:sticky;
+    top:0;
+    z-index:30;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:20px 28px;
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+
+    font-size:1rem;
+    font-weight:700;
+    color:var(--text);
+}
+
+.table-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+/* Title styling */
+.table-title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+/* Search input */
+.table-search input{
+    width: 280px;
+    max-width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    margin-right: 20px;
+}
+.table-wrapper{
+    height:500px;
+    overflow:auto;
+}
+.student-table{
+    width:100%;
+    min-width:1100px;
+    border-collapse:separate;
+    border-spacing:0;
+}
+
+/* Sticky headers */
+.student-table thead th{
+    position:sticky;
+    top:0px; /* height of .table-title */
+
+    z-index:20;
+
+    background:#fff;
+
+    padding:16px;
+    text-align:left;
+
+    font-size:.85rem;
+    font-weight:600;
+    color:#64748b;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.student-table td{
+    padding:16px;
+    font-size:.92rem;
+    color:var(--text);
+
+    border-bottom:1px solid #f1f5f9;
+}
+
+.student-table tbody tr{
+    transition:.25s;
+}
+
+.student-table tbody tr:hover{
+    background:
+        rgba(60,110,113,.05);
+}
+.table-avatar,
+.avatar-placeholder{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+}
+
+.table-avatar{
+    object-fit:cover;
+    border:2px solid #e2e8f0;
+}
+
+.avatar-placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#f1f5f9;
+    color:#94a3b8;
+}
+.subject-nav{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.subject-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px 22px;
+
+    background:var(--white);
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+
+    text-decoration:none;
+    color:var(--secondary);
+    font-weight:600;
+
+    transition:all .25s ease;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.05);
+}
+
+.subject-link i{
+    font-size:1.2rem;
+    color:var(--primary);
+}
+
+.subject-link:hover{
+    background:var(--primary);
+    color:var(--white);
+    transform:translateY(-2px);
+}
+
+.subject-link:hover i{
+    color:var(--white);
+}
+
+/* Current Page */
+.subject-link.active{
+    background:var(--primary);
+    color:var(--white);
+}
+
+.subject-link.active i{
+    color:var(--white);
+}
+
+@media (max-width:768px){
+
+    .subject-nav{
+        flex-direction:column;
+    }
+
+    .subject-link{
+        width:100%;
+        justify-content:center;
+    }
+}
+
+.table-search{
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+}
+
+.search-label{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:17px;
+    font-weight:600;
+    color:var(--secondary);
+}
+
+.search-box{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:5px 7px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    background:#fff;
+    width:280px;
+    margin-right: 20px;
+}
+
+.search-box i{
+    color:var(--primary);
+    font-size:14px;
+}
+
+.search-box input{
+    border:none;
+    outline:none;
+    width:100%;
+    font-size:14px;
+}
+.no-results{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    padding:18px;
+    color:#EF4444;
+    font-weight:600;
+    font-size:14px;
+}
+
+.no-results i{
+    font-size:16px;
+}
+.logout-btn{
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+    padding:8px 12px;
+    border-radius:10px;
+
+    text-decoration:none;
+    color:#fff;
+
+    font-weight:800;
+    font-size: 25px;
+
+    transition:.25s ease;
+}
+.logout-btn{
+   
+    color: #dc2626;
+    background: #fff;
+}
+
+.logout-btn:hover{
+    background:#dc2626;
+    color: #fff;
+    transform:translateY(-2px);
+}
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    backdrop-filter: blur(6px);
+}
+
+.modal.hidden{
+    display:none;
+}
+
+.modal-box{
+    width:90%;
+    max-width:360px;
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+    animation:pop .25s ease;
+    margin: 20px;
+}
+
+.modal-box h3{
+    margin:0;
+    font-size:1.1rem;
+    color:#284B63;
+}
+
+.modal-box h3{
+    margin:0;
+    font-size:1.1rem;
+    color:#284B63;
+}
+
+.modal-box p{
+    margin:10px 0 20px;
+    color:#6b7280;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+
+.btn-cancel{
+    padding:10px 14px;
+    border:none;
+    border-radius:10px;
+    background:#e5e7eb;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.btn-confirm{
+    padding:10px 14px;
+    border-radius:10px;
+    background:#dc2626;
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    font-size: 14px;
+}
+
+@keyframes pop{
+    from{ transform:scale(.8); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+}
+</style>
+<div class="teacher-dashboard">
+
+    <!-- Header -->
+    <div class="dashboard-top">
+
+    <div class="dashboard-header">
+        <div>
+            <h1>
+                <i class="fa-solid fa-chalkboard-user"></i>
+                Teacher Dashboard
+            </h1>
+            <p>Manage and monitor student learning progress.</p>
+        </div>
+    </div>
+
+<div class="subject-nav">
+    <a href="{% url 'overall_analytics' %}" class="subject-link">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Overall Analytics</span>
+    </a>
+
+    <a href="{% url 'html_analytics' %}"
+       class="subject-link">
+        <i class="fa-brands fa-html5"></i>
+        <span>HTML Analytics</span>
+    </a>
+
+    <a href="{% url 'css_analytics' %}"
+       class="subject-link">
+        <i class="fa-brands fa-css3-alt"></i>
+        <span>CSS Analytics</span>
+    </a>
+
+    <a href="{% url 'js_analytics' %}"
+       class="subject-link">
+        <i class="fa-brands fa-js"></i>
+        <span>JavaScript Analytics</span>
+    </a>
+       <a href="#" class="logout-btn" onclick="openLogoutModal(event)">
+    <i class="fa-solid fa-right-from-bracket"></i>
+</a>
+
+</div>
+
+</div>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <i class="fa-solid fa-users"></i>
+
+        <div>
+            <span>Total Students</span>
+            <strong>{{ students|length }}</strong>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-graduation-cap"></i>
+
+        <div>
+            <span>Courses</span>
+            <strong>Multiple</strong>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-book-open"></i>
+
+        <div>
+            <span>Learning Modules</span>
+            <strong>3 Subjects</strong>
+        </div>
+    </div>
+
+</div>
+
+<div class="table-container">
+
+<div class="table-header">
+
+    <div class="table-title">
+        <i class="fa-solid fa-users"></i>
+        Student List
+    </div>
+
+<div class="table-search">
+
+    <div class="search-label">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Search Student
+    </div>
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            id="studentSearch"
+            placeholder="Search by name..."
+            onkeyup="filterStudents()"
+        >
+    </div>
+
+</div>
+</div>
+
+    <div class="table-wrapper">
+
+    <table class="student-table">
+
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Photo</th>
+                <th>Student ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>College</th>
+                <th>Course</th>
+                <th>Year Level</th>
+                <th>Email</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+
+        <tbody>
+<tr id="noResultsRow" style="display:none;">
+    <td colspan="11" class="empty-row">
+        <div class="no-results">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            No students found
+        </div>
+    </td>
+</tr>
+
+            {% for student in students %}
+            <tr>
+
+                <td>{{ forloop.counter }}</td>
+
+                <td>
+                    {% if student.profile_picture %}
+                        <img
+                            src="{{ student.profile_picture.url }}"
+                            class="table-avatar"
+                            alt="Profile"
+                        >
+                    {% else %}
+                        <div class="avatar-placeholder">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    {% endif %}
+                </td>
+
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.first_name }}</td>
+                <td>{{ student.last_name }}</td>
+                <td>{{ student.gender }}</td>
+                <td>{{ student.college }}</td>
+                <td>{{ student.course }}</td>
+                <td>{{ student.year_level }}</td>
+                <td>{{ student.user.email }}</td>
+                <td>{{ student.created_at|date:"M d, Y" }}</td>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="11" class="empty-row">
+                    No students found.
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+</div>
+
+    <!-- Subject Buttons -->
+
+
+</div>
+<div id="logoutModal" class="modal hidden">
+    <div class="modal-box">
+
+        <h3>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Confirm Logout
+        </h3>
+
+        <p>Are you sure you want to logout?</p>
+
+        <div class="modal-actions">
+
+            <button class="btn-cancel" onclick="closeLogoutModal()">
+                Cancel
+            </button>
+
+            <a href="/logout/" class="btn-confirm">
+                Yes, Logout
+            </a>
+
+        </div>
+
+    </div>
+</div>
+<script>
+function filterStudents() {
+    const input = document.getElementById("studentSearch");
+    const filter = input.value.toLowerCase();
+
+    const rows = document.querySelectorAll(".student-table tbody tr");
+
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+
+        // skip the "No search found" row
+        if (row.id === "noResultsRow") return;
+
+        const firstName = row.children[3]?.textContent.toLowerCase() || "";
+        const lastName = row.children[4]?.textContent.toLowerCase() || "";
+        const fullName = firstName + " " + lastName;
+
+        if (fullName.includes(filter)) {
+            row.style.display = "";
+            visibleCount++;
+        } else {
+            row.style.display = "none";
+        }
+    });
+
+    // show/hide "No search found"
+    const noResultsRow = document.getElementById("noResultsRow");
+
+    if (visibleCount === 0) {
+        noResultsRow.style.display = "";
+    } else {
+        noResultsRow.style.display = "none";
+    }
+}
+function openLogoutModal(e){
+    e.preventDefault();
+    document.getElementById("logoutModal").classList.remove("hidden");
+}
+
+function closeLogoutModal(){
+    document.getElementById("logoutModal").classList.add("hidden");
+}
+
+// close when clicking outside modal box
+document.addEventListener("click", function(e){
+    const modal = document.getElementById("logoutModal");
+    if(e.target === modal){
+        closeLogoutModal();
+    }
+});
+</script>
+</body>
+</html>

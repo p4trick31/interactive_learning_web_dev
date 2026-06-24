@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+    --primary:#3C6E71;
+    --secondary:#284B63;
+    --text:#010013;
+    --border:#D9D9D9;
+    --white:#FAF9F6;
+}
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: #f4f6f9;
+        }
+
+        /* TOP BAR */
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        /* CONTAINER */
+        .container {
+            padding: 25px;
+        }
+        .profile-link{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+    color:#fff;
+
+    text-decoration:none;
+
+    transition:.25s ease;
+}
+
+/* hover effect */
+.profile-link:hover{
+    background:rgba(255,255,255,.25);
+    transform:translateY(-2px) scale(1.05);
+}
+
+/* icon size */
+.profile-link i{
+    font-size: 22px;
+}
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 18px;
+
+    background: linear-gradient(135deg, #3C6E71, #284B63);
+    color:#fff;
+
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(60,110,113,.25);
+
+    position:relative;
+    overflow:hidden;
+
+    transition:.3s ease;
+}
+
+/* subtle lift on hover */
+.navbar:hover{
+    transform:translateY(-2px);
+}
+
+/* SHINE EFFECT */
+.navbar::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-60%;
+    width:160px;
+    height:200%;
+
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.15),
+        transparent
+    );
+
+    transform:rotate(25deg);
+    transition:0.7s ease;
+}
+
+/* smoother sweep */
+.navbar:hover::before{
+    left:120%;
+}
+
+/* LEFT SIDE */
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.nav-left i{
+    font-size:1.6rem;
+}
+
+/* RIGHT SIDE */
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+/* LINKS */
+.nav-link,
+.logout-btn{
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+    padding:8px 12px;
+    border-radius:10px;
+
+    text-decoration:none;
+    color:#fff;
+
+    font-weight:800;
+    font-size: 18px;
+
+    transition:.25s ease;
+}
+
+/* LEADERBOARD BUTTON */
+.nav-link{
+    background:rgba(255,255,255,.12);
+}
+
+.nav-link:hover{
+    background:rgba(255,255,255,.22);
+    transform:translateY(-2px);
+}
+
+/* LOGOUT BUTTON */
+.logout-btn{
+   
+    color: #dc2626;
+    background: #fff;
+}
+
+.logout-btn:hover{
+    background:#dc2626;
+    color: #fff;
+    transform:translateY(-2px);
+}
+
+/* ICON ANIMATION */
+.nav-link i,
+.logout-btn i{
+    transition:.3s ease;
+}
+
+.nav-link:hover i,
+.logout-btn:hover i{
+    transform:translateX(3px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px){
+    .navbar{
+        flex-direction:row;   /* keep single row */
+        justify-content:space-between;
+        align-items:center;
+
+        gap:10px;
+        text-align:left;
+    }
+
+    .nav-right{
+        display:flex;
+        flex-direction:row;   /* force 1 row */
+        align-items:center;
+        gap:15px;
+
+        flex-wrap:nowrap;     /* IMPORTANT */
+    }
+
+    .nav-left{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        flex-shrink:1;
+    }
+}
+
+@media (max-width: 480px){
+    .navbar{
+        flex-direction:row;
+        justify-content:space-between;
+        align-items:center;
+
+        padding:10px 12px;
+    }
+
+    .nav-left h2{
+        font-size:.95rem;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+
+    .nav-right{
+        gap:10px;
+    }
+
+    .profile-link,
+    .nav-link,
+    .logout-btn{
+        width:34px;
+        height:34px;
+        padding:0;
+        justify-content:center;
+    }
+}
+.dashboard-header{
+    margin: 16px 0;
+    padding: 18px 20px;
+
+    border-radius: 18px;
+    background: transparent;
+    color:#284B63;
+
+    box-shadow: 0 10px 25px rgba(60,110,113,.25);
+    border-bottom:2px solid rgba(60,110,113,.35);
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* shine effect */
+.dashboard-header::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-40%;
+    width:140px;
+    height:200%;
+
+    background:rgba(60,110,113,.08);
+    transform:rotate(25deg);
+    transition:.6s ease;
+}
+
+.dashboard-header:hover::before{
+    left:120%;
+}
+
+/* TITLE */
+.dashboard-title{
+    display:flex;
+    align-items:center;   /* 🔥 THIS FIXES EVERYTHING */
+    gap:10px;
+
+    margin:0;
+}
+
+/* ICON */
+.animated-icon{
+    color:#3C6E71;
+    font-size:1.4rem;
+    animation:floatIcon 1.8s ease-in-out infinite;
+}
+
+.animated-icon{
+    color:#3C6E71;
+    animation:floatIcon 1.8s ease-in-out infinite;
+}
+
+@keyframes floatIcon{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-4px);
+    }
+}
+.typewriter{
+    display:inline-flex;
+    align-items:center;
+}
+
+/* THIS IS THE KEY PART */
+.typewriter-text{
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+
+    width:0;
+
+    animation:
+        typing 4s steps(26, end) infinite;
+}
+
+/* CURSOR */
+.cursor{
+    width:2px;
+    height:1.2em;
+    background:#3C6E71;
+    margin-left:4px;
+    animation:blink .7s infinite;
+}
+
+/* TYPE ANIMATION */
+@keyframes typing{
+    0%{ width:0 }
+    40%{ width:100% }
+    60%{ width:100% }
+    100%{ width:0 }
+}
+
+/* ICON FLOAT */
+@keyframes floatIcon{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-4px); }
+}
+
+/* CURSOR BLINK */
+@keyframes blink{
+    50%{ opacity:0; }
+}
+/* GRID */
+.quiz-wrapper{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+}
+
+/* CARD BASE */
+.lang-card{
+    position:relative;
+    overflow:hidden;
+
+    text-decoration:none;
+    color:#111827;
+
+    background:#fff;
+    border: 0.5px solid #111827;
+    border-radius:18px;
+
+    padding:18px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+    gap:12px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:all .35s ease;
+    cursor: pointer;
+}
+
+/* HOVER FLOAT */
+.lang-card:hover{
+    transform:translateY(-8px) scale(1.01);
+    box-shadow:0 18px 45px rgba(60,110,113,.25);
+}
+
+/* HEADER */
+.lang-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.lang-header h2{
+    margin:0;
+    font-size:1.5rem;
+    font-weight:800;
+}
+
+
+/* ICON COLORS */
+.lang-card.html i,
+.lang-card.html h2{
+    color:#e34f26;
+     font-size: 24px;
+    
+}
+
+.lang-card.css i,
+.lang-card.css h2{
+    color:#1572B6;
+     font-size: 24px;
+}
+
+.lang-card.js i,
+.lang-card.js h2{
+    color:#f7df1e;
+    font-size: 24px;
+}
+
+/* BODY */
+.lang-body p{
+    margin:0;
+    font-size:.92rem;
+    color:#6b7280;
+    line-height:1.4;
+}
+
+/* CTA BUTTON *//* MAIN BUTTON */
+.animated-button{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  padding:14px 28px;
+
+  border-radius:999px;
+
+  font-size:15px;
+  font-weight:800;
+
+  color:#fff;
+
+  background:linear-gradient(135deg,#3C6E71,#284B63);
+
+  cursor:pointer;
+  overflow:hidden;
+
+  box-shadow:0 10px 25px rgba(60,110,113,.25);
+
+  transition:all .5s cubic-bezier(0.23,1,0.32,1);
+}
+
+/* TEXT */
+.animated-button .text{
+  position:relative;
+  z-index:2;
+  transition:.5s ease;
+}
+
+/* ARROWS */
+/* ICONS */
+.animated-button i{
+  position:absolute;
+  font-size:14px;
+  color:#fff;
+  z-index:2;
+  transition:.6s ease;
+}
+
+/* RIGHT ICON */
+.animated-button .arr-1{
+  right:16px;
+}
+
+/* LEFT ICON (hidden start position) */
+.animated-button .arr-2{
+  left:-25%;
+}
+
+/* HOVER ANIMATION */
+.animated-button:hover .arr-1{
+  right:-25%;
+}
+
+.animated-button:hover .arr-2{
+  left:16px;
+}
+
+
+
+/* ENERGY CIRCLE */
+.animated-button .circle{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
+  width:20px;
+  height:20px;
+
+  background:rgba(255,255,255,.2);
+  border-radius:50%;
+
+  opacity:0;
+  transition:.6s ease;
+}
+
+/* HOVER EFFECTS */
+.animated-button:hover{
+  border-radius:14px;
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px rgba(60,110,113,.35);
+}
+
+.animated-button:hover .text{
+  transform:translateX(10px);
+}
+
+.animated-button:hover .arr-1{
+  right:-25%;
+}
+
+.animated-button:hover .arr-2{
+  left:16px;
+}
+
+.animated-button:hover .circle{
+  width:200px;
+  height:200px;
+  opacity:1;
+}
+
+/* CLICK PRESS */
+.animated-button:active{
+  transform:scale(.96);
+}
+
+.animated-button.continue{
+    background:linear-gradient(135deg,var(--secondary),var(--primary));
+}
+
+/* optional hover tweak */
+.animated-button.continue:hover{
+    box-shadow:0 15px 35px rgba(40,75,99,.35);
+}
+/* WAVE EFFECT (OPTIONAL DECOR) */
+.wave{
+    position:absolute;
+    width:120px;
+    height:200%;
+    top:-50%;
+    opacity:.06;
+    transform:rotate(25deg);
+}
+
+.wave-left{ left:-40px; background:#3C6E71; }
+.wave-right{ right:-40px; background:#284B63; }
+
+        .progress-bar {
+            width: 100%;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 10px;
+            width: 60%;
+            background: #4facfe;
+        }
+        /* BADGE GRID *//* BADGE GRID */
+.badge-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:20px;
+    margin-top:20px;
+}
+
+/* KEEP YOUR COLORS — ONLY ADD MODERN CARD STYLE */
+.badge-card{
+    position:relative;
+    overflow:hidden;
+
+    border-radius:18px;
+    padding:18px 14px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    transition:.3s ease;
+
+    /* keeps your nth-child background working */
+}
+
+/* smooth hover like lang-card */
+.badge-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 18px 40px rgba(60,110,113,.15);
+}
+.badge-card::after{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-30%;
+
+    width:120px;
+    height:200%;
+
+    background:rgba(60,110,113,.08);
+
+    transform:rotate(25deg);
+    transition:.6s ease;
+
+    pointer-events:none;
+}
+
+.badge-card:hover::after{
+    left:120%;
+}
+
+/* ICON WRAPPER (NEW GAMIFICATION LOOK) */
+.badge-img-wrap{
+    width:92px;
+    height:92px;
+    border-radius:50%;
+    overflow:hidden; /* THIS is the key */
+    margin:0 auto 6px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background: radial-gradient(circle at top, #3C6E71, #1f3f41);
+    box-shadow: 0 10px 25px rgba(60,110,113,.25);
+    border: 5px solid #fff;
+}
+
+/* IMAGE */
+.badge-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    transform: scale(1.12); /* zoom INSIDE circle */
+    transform-origin:center;
+
+}
+/* NAME */
+.badge-card h3{
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 6px 0 4px;
+    color: #111827;
+    letter-spacing: 0.2px;
+    font-family: "Inter", sans-serif;
+}
+
+/* DESCRIPTION */
+.badge-card p{
+    font-size:.78rem;
+    color:#6b7280;
+    margin:0 0 10px;
+    line-height:1.3;
+}
+
+/* XP TAG (GAMIFIED CHIP) */
+.badge-xp {
+    position: relative;
+    z-index: 2;
+
+    display: inline-block;
+    margin-top: 8px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    color: #284B63;
+
+    background: rgba(60,110,113,0.08);
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    border: 1px solid rgba(60,110,113,0.15);
+}
+.badge-card:nth-child(1) .badge-img-wrap{
+    border: 2px solid #fde68a; /* soft gold */
+    box-shadow: 0 0 10px rgba(253,230,138,.25);
+}
+
+.badge-card:nth-child(2) .badge-img-wrap{
+    border: 2px solid #a5f3fc; /* soft cyan */
+    box-shadow: 0 0 10px rgba(165,243,252,.25);
+}
+
+.badge-card:nth-child(3) .badge-img-wrap{
+    border: 2px solid #c7d2fe; /* soft indigo */
+    box-shadow: 0 0 10px rgba(199,210,254,.25);
+}
+
+.badge-card:nth-child(4) .badge-img-wrap{
+    border: 2px solid #bbf7d0; /* soft green */
+    box-shadow: 0 0 10px rgba(187,247,208,.25);
+}
+
+.badge-card:nth-child(5) .badge-img-wrap{
+    border: 2px solid #fecaca; /* soft red */
+    box-shadow: 0 0 10px rgba(254,202,202,.25);
+}
+
+.badge-card:nth-child(6) .badge-img-wrap{
+    border: 2px solid #ddd6fe; /* soft purple */
+    box-shadow: 0 0 10px rgba(221,214,254,.25);
+}
+
+.badge-card:nth-child(7) .badge-img-wrap{
+    border: 2px solid #a7f3d0; /* mint green */
+    box-shadow: 0 0 10px rgba(167,243,208,.25);
+}
+
+.badge-card:nth-child(8) .badge-img-wrap{
+    border: 2px solid #fecdd3; /* soft pink-red */
+    box-shadow: 0 0 10px rgba(254,205,211,.25);
+}
+
+.badge-card:nth-child(9) .badge-img-wrap{
+    border: 2px solid #bfdbfe; /* soft blue */
+    box-shadow: 0 0 10px rgba(191,219,254,.25);
+}
+
+.badge-card:nth-child(10) .badge-img-wrap{
+    border: 2px solid #fef9c3; /* soft yellow */
+    box-shadow: 0 0 10px rgba(254,249,195,.25);
+}
+.badge-card:nth-child(1) h3{
+    color: #f59e0b; /* gold */
+}
+
+.badge-card:nth-child(2) h3{
+    color: #06b6d4; /* cyan */
+}
+
+.badge-card:nth-child(3) h3{
+    color: #6366f1; /* purple */
+}
+
+.badge-card:nth-child(4) h3{
+    color: #22c55e; /* green */
+}
+
+.badge-card:nth-child(5) h3{
+    color: #ef4444; /* red */
+}
+
+.badge-card:nth-child(6) h3{
+    color: #8b5cf6;
+}
+
+.badge-card:nth-child(7) h3{
+    color: #10b981;
+}
+
+.badge-card:nth-child(8) h3{
+    color: #f43f5e;
+}
+
+.badge-card:nth-child(9) h3{
+    color: #3b82f6;
+}
+
+.badge-card:nth-child(10) h3{
+    color: #eab308;
+}
+/* RARITY EFFECT (OPTIONAL CLASS) */
+.badge-card.legendary::before{
+    background: linear-gradient(90deg,#f59e0b,#f97316,#ef4444);
+}
+
+.badge-card.epic::before{
+    background: linear-gradient(90deg,#8b5cf6,#6366f1);
+}
+
+.badge-card.rare::before{
+    background: linear-gradient(90deg,#06b6d4,#3b82f6);
+}
+.badge-card:nth-child(1){
+    background: linear-gradient(145deg, #fff7ed, #ffffff);
+    border-color: #f59e0b;
+}
+
+.badge-card:nth-child(2){
+    background: linear-gradient(145deg, #ecfeff, #ffffff);
+    border-color: #06b6d4;
+}
+
+.badge-card:nth-child(3){
+    background: linear-gradient(145deg, #eef2ff, #ffffff);
+    border-color: #6366f1;
+}
+
+.badge-card:nth-child(4){
+    background: linear-gradient(145deg, #f0fdf4, #ffffff);
+    border-color: #22c55e;
+}
+
+.badge-card:nth-child(5){
+    background: linear-gradient(145deg, #fef2f2, #ffffff);
+    border-color: #ef4444;
+}
+
+.badge-card:nth-child(6){
+    background: linear-gradient(145deg, #f5f3ff, #ffffff);
+    border-color: #8b5cf6;
+}
+
+.badge-card:nth-child(7){
+    background: linear-gradient(145deg, #ecfdf5, #ffffff);
+    border-color: #10b981;
+}
+
+.badge-card:nth-child(8){
+    background: linear-gradient(145deg, #fff1f2, #ffffff);
+    border-color: #f43f5e;
+}
+
+.badge-card:nth-child(9){
+    background: linear-gradient(145deg, #eff6ff, #ffffff);
+    border-color: #3b82f6;
+}
+
+.badge-card:nth-child(10){
+    background: linear-gradient(145deg, #fefce8, #ffffff);
+    border-color: #eab308;
+}
+/* =========================
+   LOCKED BADGES
+/* =========================
+   LOCKED BADGE (MODERN UX)
+========================= */
+.badge-card.locked {
+    position: relative;
+
+    /* soft desaturation instead of full grayscale */
+    filter: saturate(0.6) brightness(0.95);
+
+    opacity: 0.85;
+
+    transform: scale(0.98);
+
+    transition: all 0.3s ease;
+}
+
+/* subtle hover (still locked but interactive feel) */
+.badge-card.locked:hover {
+    transform: scale(1);
+    opacity: 0.95;
+}
+
+/* =========================
+   LOCK OVERLAY (GLASS STYLE)
+========================= */
+.badge-lock {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* softer modern glass */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(3px);
+
+    border-radius: 16px;
+
+    color: #284B63;
+    font-weight: 600;
+
+    gap: 6px;
+
+    /* subtle border for premium feel */
+    border: 1px solid rgba(60,110,113,0.15);
+}
+
+/* lock icon style */
+.badge-lock i {
+    font-size: 1.6rem;
+    color: #3C6E71;
+    opacity: 0.9;
+}
+
+/* lock text */
+.badge-lock span {
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+}
+
+/* optional: soft shine effect */
+.badge-card.locked::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+.badge-card.locked:hover::before {
+    left: 120%;
+}
+@media(max-width:1200px){
+    .badge-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+@media(max-width:900px){
+    .badge-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .badge-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .badge-img{
+        width:70px;
+        height:70px;
+        transform: scale(1.60);
+    }
+    .badge-card{
+        padding:10px 5px;
+    }
+    .container {
+        padding: 15px;
+    }
+        .dashboard-header{
+        padding:16px;
+        border-radius:16px;
+    }
+
+    .dashboard-header h2{
+        font-size:1.2rem;
+        gap:8px;
+    }
+   
+}
+.quiz-wave-btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 28px;
+
+    background:#22c55e;
+    color:#fff;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    overflow:hidden;
+
+    transition:0.3s ease;
+
+    box-shadow:0 10px 25px rgba(34,197,94,.25);
+}
+
+/* hover */
+.quiz-wave-btn:hover{
+    background:#16a34a;
+    transform:translateY(-3px);
+}
+
+/* TEXT */
+.btn-text{
+    position:relative;
+    z-index:2;
+}
+
+/* WAVES BASE */
+.wave{
+    position:absolute;
+    top:0;
+    height:100%;
+    opacity:0.12;
+}
+
+/* LEFT WAVE */
+.wave-left{
+    left:-10px;
+    width:120px;
+}
+
+/* RIGHT WAVE */
+.wave-right{
+    right:-10px;
+    width:120px;
+}
+
+/* SVG inside */
+.wave svg{
+    height:100%;
+    width:auto;
+    fill:#fff;
+}
+
+/* subtle movement animation */
+.quiz-wave-btn:hover .wave-left{
+    transform:translateX(10px);
+    transition:0.4s ease;
+}
+
+.quiz-wave-btn:hover .wave-right{
+    transform:translateX(-10px);
+    transition:0.4s ease;
+}
+@media (max-width: 480px){
+    .dashboard-header{
+        padding:14px;
+        text-align:center;
+    }
+
+    .dashboard-header h2{
+        font-size:1.05rem;
+        justify-content:center;
+    }
+
+    .dashboard-header h2 i{
+        font-size:1.2rem;
+    }
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    backdrop-filter: blur(6px);
+}
+
+.modal.hidden{
+    display:none;
+}
+
+.modal-box{
+    width:90%;
+    max-width:360px;
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+    animation:pop .25s ease;
+    margin: 20px;
+}
+
+.modal-box h3{
+    margin:0;
+    font-size:1.1rem;
+    color:#284B63;
+}
+
+.modal-box p{
+    margin:10px 0 20px;
+    color:#6b7280;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+
+.btn-cancel{
+    padding:10px 14px;
+    border:none;
+    border-radius:10px;
+    background:#e5e7eb;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.btn-confirm{
+    padding:10px 14px;
+    border-radius:10px;
+    background:#dc2626;
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    font-size: 14px;
+}
+
+@keyframes pop{
+    from{ transform:scale(.8); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+}
+/* LOCKED CARD */
+.locked{
+    position:relative;
+    overflow:hidden;
+
+    filter:grayscale(.15);
+    transform:scale(.98);
+}
+
+/* DARK OVERLAY */
+.lock-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,0,0,.45),
+            rgba(40,75,99,.45)
+        );
+
+    backdrop-filter: blur(6px);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    text-align:center;
+    color:#fff;
+
+    z-index:30;
+}
+
+/* SHINE EFFECT */
+.lock-overlay::before{
+    content:"";
+    position:absolute;
+
+    top:-50%;
+    left:-30%;
+
+    width:120px;
+    height:200%;
+
+    background:rgba(255,255,255,.08);
+
+    transform:rotate(25deg);
+
+    animation:lockShine 3s linear infinite;
+}
+
+/* LOCK ICON */
+.lock-overlay i{
+    font-size:3rem;
+
+    color:#fbbf24;
+
+    text-shadow:
+        0 0 10px rgba(251,191,36,.7),
+        0 0 20px rgba(251,191,36,.5);
+
+    animation:lockFloat 2s ease-in-out infinite;
+}
+
+/* TITLE */
+.lock-overlay span{
+    font-size:1.1rem;
+    font-weight:800;
+
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+/* MESSAGE */
+.lock-overlay small{
+    background:rgba(255,255,255,.08);
+
+    padding:8px 14px;
+    border-radius:999px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    font-size:.8rem;
+    max-width:220px;
+    line-height:1.4;
+}
+
+/* FLOATING LOCK */
+@keyframes lockFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+/* SHINE ANIMATION */
+@keyframes lockShine{
+    0%{
+        left:-40%;
+    }
+    100%{
+        left:140%;
+    }
+}
+.completed-ribbon{
+    position:absolute;
+    top:12px;
+    right:12px;
+
+    background:var(--primary);
+    color:#FAF9F6;
+
+    padding:4px 10px;
+    border-radius:999px;
+
+    font-size:.7rem;
+    font-weight:600;
+
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.completed-ribbon i{
+    font-size:.5rem;
+    color:#FAF9F6 !important;
+}
+.completion-box{
+    margin-top:10px;
+
+    background:rgba(60,110,113,.08);
+    border:1px solid rgba(60,110,113,.15);
+
+    color:var(--secondary);
+
+    padding:10px 12px;
+    border-radius:10px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    font-size:.85rem;
+    font-weight:600;
+}
+
+.completion-box i{
+    color:var(--primary) !important;
+}
+.history-button{
+    margin-top:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    padding:10px 14px;
+
+    border-radius:12px;
+
+    background:var(--primary);
+    color:#FAF9F6;
+
+    font-size:.9rem;
+    font-weight:700;
+
+    transition:.25s ease;
+}
+
+.history-button:hover{
+    background:var(--secondary);
+    transform:translateY(-2px);
+}
+
+.history-button i{
+    font-size:.85rem;
+        color:#FAF9F6 !important;
+}
+.notif-btn{
+    position:relative;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+
+    font-size:22px;
+    color:#FAF9F6;
+
+    padding:8px;
+    border-radius:10px;
+    transition:.2s;
+}
+
+.notif-btn:hover{
+    background:rgba(60,110,113,0.1);
+    transform:translateY(-2px);
+}
+
+.notif-dot{
+    display: none;
+    position:absolute;
+    top:6px;
+    right:6px;
+
+    width:8px;
+    height:8px;
+    background:red;
+    border-radius:50%;
+}
+/* OVERLAY */
+.notif-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(4px);
+
+    opacity:0;
+    visibility:hidden;
+    transition:.3s ease;
+
+    z-index:9998;
+}
+
+/* MODAL */
+.notif-modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+
+    width:90%;
+    max-width:520px;
+    max-height:80vh;
+
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:24px;
+    box-shadow:0 30px 80px rgba(0,0,0,.18);
+
+    transform:translate(-50%, -50%) scale(.95);
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+
+    overflow:hidden;
+    z-index:9999;
+}
+
+/* SHOW STATE */
+.notif-modal.show{
+    opacity:1;
+    visibility:visible;
+    transform:translate(-50%, -50%) scale(1);
+}
+
+.notif-overlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+/* HEADER */
+.notif-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 22px;
+    border-bottom:1px solid var(--border);
+}
+
+.notif-header h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:18px;
+    font-weight:700;
+}
+
+.notif-header i{
+    color:var(--primary);
+}
+
+.notif-close{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+    border-radius:12px;
+    background:#F8FAFB;
+
+    cursor:pointer;
+    transition:.25s;
+}
+
+.notif-close:hover{
+    background:#EEF2F5;
+}
+
+/* BODY */
+.notif-subtitle{
+    margin-top:4px;
+    font-size:13px;
+    color:var(--muted);
+}
+
+.notif-body{
+    max-height: 420px;   /* adjust based on modal height */
+    overflow-y: auto;
+
+    padding: 16px;
+}
+.notif-item{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+
+    padding:18px;
+    margin-bottom:16px;
+
+    background:#e6eee7;
+    border:1px solid var(--border);
+    border-radius:20px;
+
+    transition:.25s ease;
+}
+
+.notif-item:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow);
+}
+
+.notif-item.unread{
+    border-left:5px solid var(--primary);
+}
+
+/* ========= ROW 1 ========= */
+
+.notif-row{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:14px;
+
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:#fff;
+}
+
+.notif-icon{
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    background:rgba(60,110,113,.12);
+    color:var(--primary);
+    flex-shrink:0;
+}
+
+.notif-info{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    gap:12px;
+}
+
+.notif-text{
+    font-size:14px;
+    color:var(--text);
+    line-height:1.4;
+}
+
+/* highlighted parts (NO bold, just color + weight) */
+.teacher-name,
+.quiz-name{
+    color:var(--secondary);
+    font-weight:600;
+}
+
+.notif-date{
+    font-size:12px;
+    color:var(--muted);
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+/* ========= ROW 2 ========= */
+
+.notif-footer{
+    display:flex;
+    align-items:flex-end;
+    gap:14px;
+}
+
+.notif-feedback{
+    flex:1;
+
+    padding:14px 16px;
+
+    background:#fafbed;
+    border:1px solid var(--border);
+    border-radius:16px;
+
+    font-size:13px;
+    line-height:1.6;
+    color:var(--text);
+}
+
+.notif-feedback span{
+    display:block;
+    margin-bottom:6px;
+
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+
+    color:var(--primary);
+}
+
+.notif-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:8px;
+}
+
+/* date style */
+.notif-date{
+    font-size:12px;
+    color:var(--muted);
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+/* simple checkbox-style button */
+.mark-read-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    background:none;
+    border:none;
+    cursor:pointer;
+
+    color:var(--secondary);
+    font-size:12px;
+
+    padding:4px;
+}
+
+.mark-read-btn i{
+    font-size:14px;
+}
+
+.mark-text{
+    font-size:11px;
+    color:var(--muted);
+    transition:0.2s ease;
+}
+
+.mark-read-btn:hover .mark-text{
+    color:var(--secondary);
+}
+.mark-read-done{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+
+    padding:6px 10px;
+    border-radius:999px;
+
+    font-size:12px;
+    font-weight:600;
+
+    color:#284B63; /* your secondary */
+    background:rgba(40, 75, 99, 0.08);
+
+    border:1px solid rgba(40, 75, 99, 0.2);
+
+    cursor:default;
+    user-select:none;
+}
+/* when clicked (optional JS toggle class) */
+.mark-read-btn.read i{
+    color:var(--success);
+}
+/* LOADING */
+.notif-loading{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+
+    min-height:180px;
+    color:var(--muted);
+}
+.profile-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.55);
+    backdrop-filter: blur(10px);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+.profile-modal-content{
+    width:320px;
+    background:var(--white);
+    border-radius:18px;
+    padding:28px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
+    animation:pop .25s ease;
+    margin: 0px 20px;
+}
+
+.profile-icon{
+    width:70px;
+    height:70px;
+    margin:auto;
+    background:var(--secondary);
+    color:white;
+    font-size:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    margin-bottom:12px;
+}
+
+.profile-modal-content h2{
+    color:var(--text);
+    margin-bottom:10px;
+    font-size:20px;
+}
+
+.profile-modal-content p{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:18px;
+    line-height:1.5;
+}
+
+.profile-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.primary-btn{
+    background:var(--primary);
+    color:white;
+    padding:10px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    background:#2f5b5e;
+    transform:translateY(-1px);
+}
+
+.secondary-btn{
+    background:transparent;
+    border:1px solid var(--border);
+    padding:10px;
+    border-radius:10px;
+    cursor:pointer;
+    color:var(--text);
+}
+
+.secondary-btn:hover{
+    background:var(--bg);
+}
+
+@keyframes pop{
+    from{transform:scale(.8);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--secondary);
+}
+
+.profile-icon {
+    font-size: 28px;
+    color: var(--primary);
+}
+
+.nav-user span {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--border);
+}
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+<div class="nav-left">
+
+    <h2 class="nav-user">
+  <a href="/profile/" class="profile-link">
+
+    {% if user.student_profile.profile_picture %}
+        <img src="{{ user.student_profile.profile_picture.url }}" class="profile-img">
+    {% else %}
+        <i class="fa-solid fa-user-circle profile-icon"></i>
+    {% endif %}
+
+</a>
+
+        <span>{{ user.username }}</span>
+    </h2>
+
+</div>
+
+    <div class="nav-right">
+      <button class="notif-btn" onclick="toggleNotifModal()">
+    <i class="fa-solid fa-bell"></i>
+    <span class="notif-dot" id="notifDot"></span>
+</button>
+
+            <a href="/learning/" class="nav-link" title="Learning Modules">
+        <i class="fa-solid fa-book-open"></i>
+    </a>
+
+
+        <a href="/leaderboard/" class="nav-link">
+            <i class="fa-solid fa-trophy"></i>
+
+        </a>
+
+     <a href="#" class="logout-btn" onclick="openLogoutModal(event)">
+    <i class="fa-solid fa-right-from-bracket"></i>
+</a>
+
+    </div>
+
+</div>
+
+<div class="notif-modal" id="notifModal">
+
+    <!-- Header -->
+    <div class="notif-header">
+
+        <div>
+            <h3>
+                <i class="fa-solid fa-bell"></i>
+                Notifications
+            </h3>
+
+            <p class="notif-subtitle">
+                Notifications feedback from your teacher.
+            </p>
+        </div>
+
+        <button
+            class="notif-close"
+            onclick="toggleNotifModal()"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    <!-- Notification List -->
+    <div class="notif-body" id="notifBody">
+
+        <!-- Example Item -->
+        <div class="notif-item unread">
+
+    <!-- Row 1 -->
+   <div class="notif-row">
+
+    <div class="notif-icon">
+        <i class="fa-solid fa-comment-dots"></i>
+    </div>
+
+    <div class="notif-info">
+
+        <span class="notif-text">
+            <strong>Mr. Cruz</strong> provided feedback on your
+            <strong>HTML Basics Quiz</strong> attempt.
+        </span>
+
+        <span class="notif-date">
+            <i class="fa-regular fa-clock"></i>
+            Jun 22, 2026 • 3:45 PM
+        </span>
+
+    </div>
+
+</div>
+
+    <!-- Row 2 -->
+    <div class="notif-footer">
+
+        <div class="notif-feedback">
+            <span>Teacher Feedback</span>
+            Excellent work! Review semantic tags and keep practicing.
+        </div>
+
+       <button
+    class="mark-read-btn notif-mark-btn"
+    onclick="markAsRead(this)"
+>
+
+    <i class="fa-regular fa-square"></i>
+
+    <span class="mark-text">Mark as read</span>
+
+</button>
+
+    </div>
+
+</div>
+    </div>
+
+</div>
+
+<div
+    class="notif-overlay"
+    id="notifOverlay"
+    onclick="toggleNotifModal()"
+></div>
+<!-- CONTENT -->
+
+
+<div class="container dashboard-header">
+  <h2 class="dashboard-title">
+    <i class="fa-solid fa-chart-line animated-icon"></i>
+
+    <span class="typewriter">
+        <span class="typewriter-text">Your Learning Dashboard</span>
+        <span class="cursor"></span>
+    </span>
+</h2>
+</div>
+
+<div id="profileModal" class="profile-modal">
+    <div class="profile-modal-content">
+
+        <div class="profile-icon">
+            <i style="color: #D9D9D9;" class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <h2>Complete Your Profile</h2>
+
+        <p>
+            You must complete your personal information before starting a quiz.
+        </p>
+
+        <div class="profile-actions">
+
+            <a href="{% url 'profile' %}" class="primary-btn">
+                Complete Profile
+            </a>
+
+            <button class="secondary-btn" onclick="closeModal('profileModal')">
+                Maybe Later
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="quiz-wrapper">
+
+    <!-- HTML -->
+<a href="/html-dashboard"
+   class="lang-card html completed-card"
+   onclick="return checkProfile(event, '/html-dashboard')">
+    <span class="wave wave-left"></span>
+    <span class="wave wave-right"></span>
+
+    {% if html_hard_done %}
+    <div class="completed-ribbon">
+        <i class="fa-solid fa-circle-check"></i>
+        Completed
+    </div>
+    {% endif %}
+
+    <div class="lang-header">
+        <i class="fa-brands fa-html5"></i>
+        <h2>HTML</h2>
+    </div>
+
+    <div class="lang-body">
+        <p>
+            Build the structure of web pages using semantic elements,
+            forms, and layouts.
+        </p>
+    </div>
+
+    {% if html_hard_done %}
+<div class="completion-box">
+    <i class="fa-solid fa-trophy"></i>
+    <span>All HTML Challenges Completed</span>
+</div>
+{% endif %}
+
+{% if html_status == "completed" %}
+
+    <div class="history-button">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>View History</span>
+    </div>
+
+{% elif html_status == "continue" %}
+<div class="animated-button continue">
+    <span class="circle"></span>
+
+    <span class="text">Continue Quiz</span>
+
+<i class="fa-solid fa-arrow-right arr-1"></i>
+        <i class="fa-solid fa-arrow-right arr-2"></i>
+</div>
+
+{% else %}
+
+    <div class="animated-button">
+        <span class="circle"></span>
+
+        <span class="text">Start Quiz</span>
+
+        <i class="fa-solid fa-arrow-right arr-1"></i>
+        <i class="fa-solid fa-arrow-right arr-2"></i>
+    </div>
+
+{% endif %}
+</a>
+
+    <!-- CSS -->{% if html_hard_done %}
+<a href="/css-dashboard" class="lang-card css">
+{% else %}
+<div class="lang-card css locked">
+{% endif %}
+
+    <span class="wave wave-left"></span>
+    <span class="wave wave-right"></span>
+
+    {% if not html_hard_done %}
+    <div class="lock-overlay">
+        <i class="fa-solid fa-lock"></i>
+        <span>Not Available</span>
+        <small>Complete Hard HTML Quiz First</small>
+    </div>
+    {% endif %}
+      {% if css_hard_done %}
+    <div class="completed-ribbon">
+        <i class="fa-solid fa-circle-check"></i>
+        Completed
+    </div>
+    {% endif %}
+
+    <div class="lang-header">
+        <i class="fa-brands fa-css3-alt"></i>
+        <h2>CSS</h2>
+    </div>
+
+    <div class="lang-body">
+        <p>Design beautiful websites using layouts, animations, flexbox, and grid systems.</p>
+    </div>
+
+    
+    {% if css_hard_done %}
+<div class="completion-box">
+    <i class="fa-solid fa-trophy"></i>
+    <span>All CSS Challenges Completed</span>
+</div>
+{% endif %}
+
+{% if css_status == "completed" %}
+
+    <div class="history-button">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>View History</span>
+    </div>
+
+{% elif css_status == "continue" %}
+<div class="animated-button continue">
+    <span class="circle"></span>
+
+    <span class="text">Continue Quiz</span>
+
+<i class="fa-solid fa-arrow-right arr-1"></i>
+        <i class="fa-solid fa-arrow-right arr-2"></i>
+</div>
+
+{% else %}
+
+    <div class="animated-button">
+        <span class="circle"></span>
+
+        <span class="text">
+            {% if html_hard_done %}
+                Start Quiz
+            {% else %}
+                Locked
+            {% endif %}
+        </span>
+
+        <i class="fa-solid fa-arrow-right arr-1"></i>
+        <i class="fa-solid fa-arrow-right arr-2"></i>
+    </div>
+    {% endif %}
+
+{% if html_hard_done %}
+</a>
+{% else %}
+</div>
+{% endif %}
+    <!-- JS -->{% if css_hard_done %}
+<a href="/js-dashboard" class="lang-card js">
+{% else %}
+<div class="lang-card js locked">
+{% endif %}
+
+    <span class="wave wave-left"></span>
+    <span class="wave wave-right"></span>
+
+    {% if not css_hard_done %}
+    <div class="lock-overlay">
+        <i class="fa-solid fa-lock"></i>
+
+        <span>Locked</span>
+
+        <small>
+            Complete the CSS Hard Challenge to unlock JavaScript
+        </small>
+    </div>
+    {% endif %}
+  {% if html_hard_done %}
+    <div class="completed-ribbon">
+        <i class="fa-solid fa-circle-check"></i>
+        Completed
+    </div>
+    {% endif %}
+    <div class="lang-header">
+        <i class="fa-brands fa-js"></i>
+        <h2>JavaScript</h2>
+    </div>
+
+    <div class="lang-body">
+        <p>
+            Make websites interactive with logic, DOM manipulation,
+            events, and APIs.
+        </p>
+    </div>
+        
+    {% if js_hard_done %}
+<div class="completion-box">
+    <i class="fa-solid fa-trophy"></i>
+    <span>All JavaScript Challenges Completed</span>
+</div>
+{% endif %}
+
+{% if js_status == "completed" %}
+
+    <div class="history-button">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>View History</span>
+    </div>
+
+{% elif js_status == "continue" %}
+<div class="animated-button continue">
+    <span class="circle"></span>
+
+    <span class="text">Continue Quiz</span>
+
+<i class="fa-solid fa-arrow-right arr-1"></i>
+        <i class="fa-solid fa-arrow-right arr-2"></i>
+</div>
+
+{% else %}
+    <div class="animated-button">
+        <span class="circle"></span>
+
+        <span class="text">
+            {% if css_hard_done %}
+                Start Quiz
+            {% else %}
+                Locked
+            {% endif %}
+        </span>
+
+        <i class="fa-solid fa-arrow-right arr-1"></i>
+        <i class="fa-solid fa-arrow-right arr-2"></i>
+    </div>
+{% endif %}
+{% if css_hard_done %}
+</a>
+{% else %}
+</div>
+{% endif %}
+
+</div>
+
+
+    <h2 style="margin-top:30px;">Achievement Badges</h2>
+<div class="badge-grid">
+
+    {% for badge in badges %}
+
+    <div class="badge-card {% if badge in user_badges %}earned{% else %}locked{% endif %}">
+
+        {% if badge.image %}
+            <div class="badge-img-wrap">
+                <img src="{{ badge.image.url }}" class="badge-img">
+            </div>
+        {% else %}
+            <div class="badge-placeholder">
+                <i class="fa-solid fa-award"></i>
+            </div>
+        {% endif %}
+
+        <h3>
+            {% if badge.name == "First Steps" %}
+                <i class="fa-solid fa-star"></i>
+            {% elif badge.name == "HTML Rookie" %}
+                <i class="fa-solid fa-code"></i>
+            {% elif badge.name == "HTML Explorer" %}
+                <i class="fa-solid fa-globe"></i>
+            {% elif badge.name == "Code Apprentice" %}
+                <i class="fa-solid fa-gear"></i>
+            {% elif badge.name == "Code Warrior" %}
+                <i class="fa-solid fa-shield-halved"></i>
+            {% elif badge.name == "Frontend Builder" %}
+                <i class="fa-solid fa-paintbrush"></i>
+            {% elif badge.name == "UI Creator" %}
+                <i class="fa-solid fa-layer-group"></i>
+            {% elif badge.name == "Web Developer" %}
+                <i class="fa-solid fa-rocket"></i>
+            {% elif badge.name == "Full Stack Hero" %}
+                <i class="fa-solid fa-bolt"></i>
+            {% elif badge.name == "Programming Master" %}
+                <i class="fa-solid fa-crown"></i>
+            {% endif %}
+
+            {{ badge.name }}
+        </h3>
+
+        <p>{{ badge.description }}</p>
+
+        <span class="badge-xp">
+            {{ badge.required_xp }} XP Required
+        </span>
+
+        <!-- LOCK OVERLAY -->
+        {% if badge not in user_badges %}
+        <div class="badge-lock">
+            <i class="fa-solid fa-lock"></i>
+            <span>Locked</span>
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+</div>
+
+<div id="logoutModal" class="modal hidden">
+    <div class="modal-box">
+
+        <h3>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Confirm Logout
+        </h3>
+
+        <p>Are you sure you want to logout?</p>
+
+        <div class="modal-actions">
+
+            <button class="btn-cancel" onclick="closeLogoutModal()">
+                Cancel
+            </button>
+
+            <a href="/logout/" class="btn-confirm">
+                Yes, Logout
+            </a>
+
+        </div>
+
+    </div>
+</div>
+<script>
+function openLogoutModal(e){
+    e.preventDefault();
+    document.getElementById("logoutModal").classList.remove("hidden");
+}
+
+function closeLogoutModal(){
+    document.getElementById("logoutModal").classList.add("hidden");
+}
+function closeModal(id){
+    const modal = document.getElementById(id);
+    if (!modal) return;
+
+    modal.style.display = "none";
+}
+
+// close when clicking outside modal box
+document.addEventListener("click", function(e){
+    const modal = document.getElementById("logoutModal");
+    if(e.target === modal){
+        closeLogoutModal();
+        
+    }
+});
+document.addEventListener("click", function (e) {
+
+    document.querySelectorAll(".modal").forEach(modal => {
+
+        const content = modal.querySelector(".modal-content");
+
+        if (modal.style.display === "flex" &&
+            !content.contains(e.target) &&
+            e.target === modal
+        ) {
+            modal.style.display = "none";
+        }
+
+    });
+
+});
+window.addEventListener("pageshow", function(event) {
+
+    if (event.persisted) {
+        window.location.reload();
+    }
+
+});
+
+</script>
+<script>function renderNotifications(data){
+
+    const body = document.getElementById("notifBody");
+    body.innerHTML = "";
+
+    if (!data || data.length === 0) {
+        body.innerHTML = `<div class="notif-empty">No notifications</div>`;
+        updateNotifDot();
+        return;
+    }
+
+    data.forEach(n => {
+
+        const unreadClass = n.is_read ? "read" : "unread";
+
+        const buttonState = n.is_read
+            ? `
+                <span class="mark-read-done">
+                    <i class="fa-solid fa-check"></i>
+                    Read
+                </span>
+              `
+            : `
+                <button class="mark-read-btn" onclick="markAsRead(this)" data-id="${n.id}">
+                    <i class="fa-regular fa-square"></i>
+                    Mark as read
+                </button>
+              `;
+
+        body.innerHTML += `
+        <div class="notif-item ${unreadClass}" data-id="${n.id}">
+
+            <div class="notif-row">
+
+                <div class="notif-icon">
+                    <i class="fa-solid fa-comment-dots"></i>
+                </div>
+
+                <div class="notif-info">
+
+                    <span class="notif-text">
+                        <span class="teacher-name">${n.teacher_first_name}</span>
+                        gave feedback on your
+                        <span class="quiz-name">${n.quiz}</span>
+                        attempt.
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="notif-feedback">
+                <span>Teacher Feedback</span>
+                ${n.message}
+            </div>
+
+            <div class="notif-footer">
+
+                <span class="notif-date">
+                    <i class="fa-regular fa-clock"></i>
+                    ${n.date}
+                </span>
+
+                ${buttonState}
+
+            </div>
+
+        </div>
+        `;
+    });
+
+    updateNotifDot();
+}
+async function loadNotifications() {
+
+    const body = document.getElementById("notifBody");
+
+    body.innerHTML = `
+        <div class="notif-loading">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Loading notifications...
+        </div>
+    `;
+
+    try {
+
+        const response = await fetch("/notifications/");
+        const data = await response.json();
+
+        renderNotifications(data.notifications);
+
+        // ✅ FIX: use data inside scope
+        updateNotifDot(data.unread_count);
+
+    } catch (error) {
+
+        body.innerHTML = `
+            <div class="notif-empty">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>Unable to load notifications.</p>
+            </div>
+        `;
+
+        // optional safe fallback
+        updateNotifDot(0);
+    }
+}
+
+function toggleNotifModal() {
+
+    const modal = document.getElementById("notifModal");
+    const overlay = document.getElementById("notifOverlay");
+
+    const isOpen = modal.classList.contains("show");
+
+    if (isOpen) {
+        modal.classList.remove("show");
+        overlay.classList.remove("show");
+    } else {
+        modal.classList.add("show");
+        overlay.classList.add("show");
+
+        loadNotifications();
+    }
+}
+function getCSRFToken() {
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+
+            if (cookie.substring(0, 10) === 'csrftoken=') {
+                cookieValue = decodeURIComponent(cookie.substring(10));
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+function markAsRead(button) {
+
+    const item = button.closest(".notif-item");
+    const id = item.dataset.id;
+
+    fetch(`/notifications/read/${id}/`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+            "Content-Type": "application/json"
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if (!data.success) return;
+
+        // 🔥 mark UI as read ONLY if backend success
+        item.classList.remove("unread");
+        item.classList.add("read");
+
+        // update button
+        button.innerHTML = `
+            <i class="fa-solid fa-check"></i>
+            <span class="mark-text">Read</span>
+        `;
+
+        button.disabled = true;
+        button.style.opacity = "0.6";
+        button.style.cursor = "default";
+
+        updateNotifDot();
+    })
+    .catch(err => {
+        console.log("Mark read error:", err);
+    });
+}
+function updateNotifDot(unreadCount) {
+    const dot = document.getElementById("notifDot");
+
+    if (unreadCount > 0) {
+        dot.style.display = "inline-block";
+    } else {
+        dot.style.display = "none";
+    }
+}
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const res = await fetch("/notifications/");
+        const data = await res.json();
+
+        updateNotifDot(data.unread_count);
+    } catch (e) {
+        updateNotifDot(0);
+    }
+});
+const profileMissing = {{ profile_missing|yesno:"true,false" }};
+
+function checkProfile(event, url) {
+
+    if (profileMissing) {
+        event.preventDefault(); // ❗ stop link
+        document.getElementById("profileModal").style.display = "flex";
+        return false;
+    }
+
+    // allow navigation
+    window.location.href = url;
+    return false;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,3913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<title>CSS Dashboard</title>
+
+<style>
+:root{
+    --primary:#3C6E71;
+    --secondary:#284B63;
+    --text:#010013;
+    --border:#D9D9D9;
+    --white:#FAF9F6;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+/* =======================
+   LAYOUT (MOBILE FIRST)
+======================= */
+
+.container{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    padding:16px;
+}
+
+/* Tablet */
+@media (min-width:768px){
+    .container{
+        grid-template-columns:repeat(2,1fr);
+        gap:20px;
+        padding:20px;
+    }
+}
+
+/* Desktop */
+@media (min-width:1024px){
+    .container{
+        grid-template-columns:repeat(3,1fr);
+        gap:24px;
+    }
+}
+
+/* =======================
+   QUIZ CARD
+======================= */
+
+.box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding: 25px;
+    transition:.3s ease;
+    position:relative;
+    overflow:hidden;
+    text-align:left;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+    cursor:pointer;
+    margin: 5px;
+    
+}
+
+.box:hover{
+    transform:translateY(-6px);
+    border-color:var(--primary);
+    box-shadow:0 20px 45px rgba(60,110,113,.18);
+}
+
+/* Top color indicator */
+.box::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:5px;
+}
+
+.easy::before{ background:#22c55e; }
+.medium::before{ background:#f59e0b; }
+.hard::before{ background:#ef4444; }
+
+/* =======================
+   HEADER
+======================= */
+
+.quiz-header{
+    margin-bottom:12px;
+}
+
+.quiz-header h3{
+    font-size:1.2rem;
+    margin:10px 0 6px;
+    color:var(--text);
+    font-weight:700;
+    line-height:1.4;
+}
+
+.quiz-subject{
+    color:#6b7280;
+    display:flex;
+    gap:6px;
+    align-items:center;
+    font-size:.9rem;
+}
+
+/* =======================
+   BADGES
+======================= */
+
+.difficulty-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:.75rem;
+    font-weight:700;
+}
+
+.easy-badge{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.medium-badge{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.hard-badge{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+/* =======================
+   DESCRIPTION
+======================= */
+
+.quiz-description{
+    color:#6b7280;
+    line-height:1.6;
+    margin-bottom:14px;
+    font-size:.9rem;
+}
+
+/* =======================
+   INFO BOX
+======================= */
+
+.quiz-info{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    background:#f9fafb;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:14px;
+}
+
+.info-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#374151;
+    font-size:.85rem;
+}
+
+.info-item i{
+    color:var(--primary);
+    width:18px;
+}
+
+.xp{
+    color:#f59e0b;
+    font-weight:700;
+}
+
+/* =======================
+   STATUS
+======================= */
+
+.quiz-status-wrapper{
+    margin-top:14px;
+}
+
+.quiz-status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 12px;
+    border-radius:10px;
+    font-size:.85rem;
+    font-weight:600;
+}
+
+.quiz-status.success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.quiz-status.failed{
+    background:#fef2f2;
+    color:#dc2626;
+}
+
+.quiz-status.available{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+/* =======================
+   PROGRESS BAR
+======================= */
+
+.progress-mini{
+    margin-top:12px;
+}
+
+.progress-label{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-size:.8rem;
+    font-weight:600;
+}
+
+.progress-track{
+    height:8px;
+    background:#E5E7EB;
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+/* =======================
+   FOOTER
+======================= */
+
+.quiz-footer{
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:.85rem;
+    font-weight:600;
+    color:var(--primary);
+}
+
+/* =======================
+   CTA SECTION
+======================= */
+
+.cta-area{
+    margin-top:14px;
+    padding:14px;
+    background:linear-gradient(135deg, rgba(60,110,113,.08), rgba(40,75,99,.08));
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.cta-area strong{
+    color:var(--secondary);
+}
+
+.cta-area span{
+    color:#6b7280;
+    font-size:.85rem;
+}
+
+/* BACKDROP */
+/* MODAL BACKDROP (works for both modals) */
+#quizModal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    z-index:9998;
+
+    /* center */
+    justify-content:center;
+    align-items:center;
+}
+
+/* only when active */
+#quizModal.show{
+    display:flex;
+}
+
+#quizModal .modal-content{
+    background:#fff;
+    width:90%;
+    max-width:900px;
+    max-height:90vh;
+    overflow-y:auto;
+    border-radius:20px;
+    padding:24px;
+}
+.result-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+    z-index:999;
+    backdrop-filter: blur(6px);
+}
+
+.result-modal.hidden{
+    display:none;
+}
+
+.result-box{
+    width:100%;
+    max-width:560px;
+    max-height:90vh;   /* 👈 KEY FIX */
+
+    background:linear-gradient(180deg,#ffffff,#f8fafc);
+    border-radius:18px;
+
+    padding:20px;
+    box-sizing:border-box;
+
+    box-shadow:0 25px 80px rgba(0,0,0,.25);
+
+    animation:popIn .25s ease;
+
+    /* 👇 SCROLL ENABLED */
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+/* HEADER */
+.result-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.title-wrap{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.trophy-icon{
+    color:#f59e0b;
+    font-size:26px;
+    animation:float 2s infinite ease-in-out;
+}
+
+.subtitle{
+    font-size:.8rem;
+    color:#6b7280;
+}
+
+/* RANK BADGE */
+.rank-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#e0f2fe;
+    color:#0369a1;
+    padding:6px 12px;
+    border-radius:999px;
+    font-weight:600;
+    margin-bottom:10px;
+    animation:fadeUp .3s ease;
+}
+
+/* GRID */
+.result-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* CARD */
+.result-card{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:12px;
+    transition:.2s;
+}
+
+.result-card:hover{
+    transform:translateY(-2px);
+    border-color:#3C6E71;
+}
+
+/* XP BAR */
+.xp-container{
+    margin-top:14px;
+}
+
+.xp-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:.85rem;
+    margin-bottom:6px;
+}
+
+.xp-card{
+    margin-top:15px;
+    padding:18px;
+    border-radius:16px;
+    background:linear-gradient(
+        135deg,
+        #3C6E71,
+        #284B63
+    );
+    color:#fff;
+}
+.xp-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.xp-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+.xp-earned{
+    font-weight:700;
+    font-size:1rem;
+    color:#FFD166;
+}
+.xp-numbers{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:.85rem;
+}
+.xp-footer{
+    margin-top:8px;
+    display:flex;
+    justify-content:space-between;
+    font-size:.8rem;
+    opacity:.95;
+}
+
+.xp-bar {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.xp-level{
+    opacity:.8;
+    font-size:.85rem;
+    margin-top:4px;
+}
+.xp-fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        #3C6E71,
+        #4FA3A8
+    );
+    border-radius:999px;
+}
+
+.status-strip{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+
+    padding:14px;
+
+    background:#f8fafc;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+}
+
+.status-item{
+    flex:1;
+
+    display:flex;
+    flex-direction:column; /* TOP -> BOTTOM */
+    align-items:center;
+
+    text-align:center;
+
+    padding:10px;
+}
+
+.status-item i{
+    font-size:18px;
+    color:#3C6E71;
+}
+
+.status-item span{
+    display:block;
+    font-size:.75rem;
+    color:#64748b;
+}
+
+.status-item strong{
+    font-size:1rem;
+    color:#111;
+}
+.performance-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    gap:12px;
+    flex-wrap:nowrap;
+    overflow-x:auto; /* prevents breaking */
+}
+
+.performance-card::-webkit-scrollbar{
+    display:none;
+}
+
+.perf-item{
+    text-align:center;
+    padding:5px 12px;
+    background:linear-gradient(90deg,#e0f2fe,#dbeafe);
+    border-radius:10px;
+    min-width:50px;
+}
+
+.perf-item span{
+    display:block;
+    font-size:.75rem;
+    color:#64748b;
+}
+
+.perf-item strong{
+    font-size:1.1rem;
+    color:#111;
+}
+
+
+/* BUTTON */
+.result-btn{
+    width:100%;
+    margin-top:14px;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#3C6E71;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+}
+.circle-wrap{
+    position:relative;
+    width:90px;
+    height:90px;
+    margin:auto;
+}
+
+.circle{
+    width:90px;
+    height:90px;
+    transform:rotate(-90deg);
+}
+
+.circle-bg{
+    fill:none;
+    stroke:#e5e7eb;
+    stroke-width:3;
+}
+
+.circle-progress{
+    fill:none;
+    stroke:#3C6E71;
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-dasharray:100;
+    stroke-dashoffset:100;
+    transition:1s ease;
+}
+
+.circle-text{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+.circle-text strong{
+    font-size:16px;
+    display:block;
+}
+
+/* ANIMATIONS */
+@keyframes popIn{
+    from{transform:scale(.9); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-5px);}
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+/* =========================
+   TOP HEADER
+========================= */
+
+.quiz-top{
+    margin-bottom:18px;
+}
+
+.quiz-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.quiz-title{
+    font-weight:700;
+    color:#353535;
+}
+
+.quiz-timer{
+    font-weight:700;
+    color:#ef4444;
+}
+
+
+/* ACTION AREA */
+.quiz-actions{
+    margin-top:14px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+/* BUTTON */
+#actionBtn{
+    background:#3C6E71;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s ease;
+}
+
+#submitBtn:hover{
+    background:#284B63;
+    transform:translateY(-2px);
+}
+
+#submitBtn:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+}
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress-bar{
+    width:100%;
+    height:10px;
+    background:#e5e7eb;
+    border-radius:50px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    background:linear-gradient(90deg,#3C6E71,#284B63);
+    transition:0.4s ease;
+}
+
+.progress-text{
+    text-align:right;
+    font-size:12px;
+    color:#6b7280;
+    margin-top:4px;
+}
+
+/* =========================
+   QUESTION CARD
+========================= */
+
+.question-card{
+    background:#fff;
+    border:1px solid #D9D9D9;
+    border-radius:14px;
+    padding:10px;
+    margin-bottom:16px;
+}
+
+.question-text{
+    font-size:1.05rem;
+    font-weight:600;
+    color:#353535;
+    line-height:1.5;
+}
+
+/* =========================
+   ANSWERS
+========================= */
+
+.answer-section{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.choice-card{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    border:1px solid #D9D9D9;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.2s ease;
+    background:#fff;
+}
+
+.choice-card:hover{
+    border-color:#3C6E71;
+    transform:translateY(-2px);
+}
+
+.choice-card input{
+    accent-color:#3C6E71;
+}
+
+.choice-text{
+    font-size:.95rem;
+    color:#353535;
+}
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback-area{
+    margin-top:16px;
+    padding:14px;
+    border-radius:10px;
+    display:none;
+}
+
+
+/* =========================
+   CODE WRAPPER (CARD STYLE)
+========================= */
+
+
+
+
+/* WRAPPER *//* WRAPPER */
+.code-wrapper{
+    margin-top:10px;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid #2d2d2d;
+    background:#1e1e1e;
+    
+}
+
+/* HEADER */
+.code-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+
+    padding:6px 10px;         /* reduced padding */
+    margin:0; 
+
+    background:#252526;
+    border-bottom:1px solid #333;
+
+    color:#d4d4d4;
+    font-size:.85rem;
+    font-weight:500;
+}
+
+/* LANGUAGE TAG */
+.code-lang{
+    background:#3C6E71;
+    color:#fff;
+
+    padding:3px 8px;
+    border-radius:4px;
+
+    font-size:.75rem;
+}
+
+/* CODE AREA */
+.code-block{
+    margin:0;
+    padding:14px 16px;
+
+    overflow-x:auto;
+    background:#1e1e1e;
+}
+
+/* CODE TEXT */
+.code-block code{
+    display:block;
+
+    margin:0;
+    padding:0;
+
+    color:#d4d4d4;
+
+    font-family:Consolas, Monaco, "Courier New", monospace;
+    font-size:.9rem;
+    line-height:1.6;
+
+    white-space:pre;
+    text-align:left;
+}
+
+/* SCROLLBAR */
+.code-block::-webkit-scrollbar{
+    height:6px;
+}
+
+.code-block::-webkit-scrollbar-thumb{
+    background:#555;
+    border-radius:10px;
+}
+/* =========================
+   BUTTON
+========================= */
+
+.quiz-actions{
+    margin-top:18px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+#submitBtn{
+    background:#3C6E71;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+#submitBtn:hover{
+    background:#284B63;
+    transform:translateY(-2px);
+}
+
+/* optional animation */
+@keyframes pop{
+    from{ transform:scale(.8); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+}
+
+/* =======================
+   HISTORY
+======================= */
+
+.history-mini{
+    margin-top:14px;
+    padding:14px;
+    background:#f9fafb;
+    border-radius:14px;
+    line-height:1.6;
+    color:#4b5563;
+    font-size:.85rem;
+}
+
+.history-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:.85rem;
+}
+
+/* =======================
+   MODAL
+======================= */
+
+.modal-content{
+    border-radius:20px;
+    padding:24px;
+    background:#fff;
+    max-width:900px;
+}
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.modal-content{
+    position:relative;
+}
+
+.correct{
+    color:#22c55e;
+    margin-left:8px;
+}
+
+.wrong{
+    color:#ef4444;
+    margin-left:8px;
+}
+
+/* explanation button */
+.explain-btn{
+    margin-top:12px;
+    background:#3C6E71;
+    color:#fff;
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    display:flex;
+    gap:6px;
+    align-items:center;
+}
+
+
+
+/* BACKDROP */
+#explainModal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    padding:15px;
+}
+
+/* HIDE STATE */
+
+/* MODAL BOX (SMALL CARD) */
+#explainModal .modal-box{
+    width:100%;
+    max-width:380px;
+    background:#fff;
+    border-radius:12px;
+    padding:16px;
+    position:relative;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+
+    animation:pop .18s ease;
+}
+.close-btn{
+    background:transparent;
+    border:none;
+    font-size:18px;
+    color:#555;
+    cursor:pointer;
+    transition:0.2s ease;
+    margin-left:auto; /* pushes it to the right */
+}
+
+.close-btn:hover{
+    color:#000;
+    transform:scale(1.1);
+}
+
+/* CLOSE BUTTON */
+#explainModal .modal-close{
+    position:absolute;
+    top:8px;
+    right:8px;
+    border:none;
+    background:none;
+    font-size:18px;
+    cursor:pointer;
+    color:#555;
+}
+
+/* TITLE */
+#explainModal .modal-title{
+    font-size:1rem;
+    font-weight:700;
+    color:#3C6E71;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:10px;
+}
+
+.warning-area{
+    display:none;
+    margin-bottom:14px;
+    padding:12px 14px;
+    background:#fff5f5;
+    border:1px solid #fecaca;
+    color:#dc2626;
+    border-radius:12px;
+    font-weight:600;
+    animation:shake .3s ease;
+    font-size: 12px;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-4px);}
+    75%{transform:translateX(4px);}
+}
+/* BODY */
+#explainModal .modal-body{
+    font-size:.9rem;
+    line-height:1.5;
+    color:#333;
+}
+
+.hidden{
+    display:none !important;
+}
+/* ANIMATION */
+@keyframes pop{
+    from{
+        transform:scale(.9);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* MOBILE */
+@media (max-width:480px){
+    #explainModal .modal-box{
+        max-width:320px;
+        padding:14px;
+    }
+
+    #explainModal .modal-body{
+        font-size:.85rem;
+    }
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+    from{ opacity:0; transform:translateY(5px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+/* =======================
+   MOBILE OPTIMIZATION
+======================= */
+
+@media (max-width:480px){
+
+    .container{
+        gap:12px;
+        padding:12px;
+    }
+
+    .box{
+        padding:16px;
+        border-radius:16px;
+    }
+
+    .quiz-header h3{
+        font-size:1rem;
+    }
+
+    .quiz-description{
+        font-size:.85rem;
+    }
+
+    .quiz-info{
+        padding:12px;
+    }
+
+    .cta-area{
+        padding:12px;
+    }
+
+    .quiz-footer{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:6px;
+    }
+
+    .quiz-status{
+        width:100%;
+        justify-content:center;
+    }
+}
+
+.analytics-hidden{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(-8px);
+    transition:all .35s ease;
+}
+
+.analytics-hidden.show-analytics{
+    max-height:500px;
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* visible state */
+.analytics-btn{
+    margin-left:auto; /* pushes button to right */
+    display:flex;
+    align-items:center;
+    gap:8px;
+   
+    background:transparent;
+    border:none;
+
+    color:#3C6E71;
+    font-weight:600;
+    font-size:.95rem;
+
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.analytics-btn:hover{
+    color:#284B63;
+}
+
+.analytics-btn i{
+    font-size:.8rem;
+    transition:transform .3s ease;
+}
+
+/* rotate arrow when open */
+.analytics-btn.active i{
+    transform:rotate(90deg);
+}
+
+.blank-input{
+    width:60px;
+
+    background:#2d2d2d;
+    color:#fff;
+
+    border:1px solid #555;
+    border-radius:4px;
+
+    padding:3px 0px;
+
+    font-family:Consolas, monospace;
+    font-size:.9rem;
+    text-align:center;
+
+    outline:none;
+    vertical-align:middle;
+}
+
+.blank-input:focus{
+    border-color:#3C6E71;
+}
+
+.blank-input:disabled{
+    opacity:.8;
+}
+
+/* =========================
+   BADGE CONTAINER
+========================= */
+#badgeSection{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:14px;
+    width:100%;
+    box-sizing:border-box;
+    margin-top: 10px;
+}
+
+/* MOBILE → 1 COLUMN */
+@media (max-width: 768px){
+    #badgeSection{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =========================
+   BADGE CARD
+========================= */
+.badge-card{
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+  
+
+    padding:14px 16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    text-align:left;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+    transition:.25s ease;
+
+    overflow:hidden;
+    width:100%;
+    box-sizing:border-box;
+
+    position:relative;
+    gap:14px;
+    margin-top: 10px;
+    background:#fff;
+}
+
+/* hover animation */
+.badge-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(60,110,113,.18);
+}
+
+/* TOP STRIPE */
+.badge-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+
+}
+
+/* =========================
+   LEFT (IMAGE)
+========================= */
+.badge-img-wrap{
+    width:60px;
+    height:60px;
+
+    border-radius:50%;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background: radial-gradient(circle at top, #3C6E71, #1f3f41);
+
+    box-shadow:0 8px 18px rgba(60,110,113,.25);
+
+    border:2px solid #fff;
+
+    flex-shrink:0;
+}
+
+.badge-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transform:scale(1.1);
+}
+
+/* =========================
+   MIDDLE (TITLE)
+========================= */
+.badge-info{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.badge-title{
+    font-size:0.95rem;
+    font-weight:700;
+    color:#111827;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    font-family:"Inter", sans-serif;
+}
+
+/* optional description */
+.badge-desc{
+    font-size:.75rem;
+    color:#6b7280;
+    margin-top:2px;
+}
+
+/* =========================
+   RIGHT (XP)
+========================= */
+.badge-xp{
+    display:inline-flex;
+    align-items:center;
+
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    font-size:.75rem;
+    font-weight:700;
+
+    background:linear-gradient(90deg,#e0f2fe,#dbeafe);
+    color:#1d4ed8;
+
+    border:1px solid #bfdbfe;
+
+    flex-shrink:0;
+}
+.badge-header{
+    position: relative;
+
+    margin: 10px 0 12px;
+    padding: 14px 16px;
+
+    background: #fff;
+    color: #284B63;
+
+    border-radius: 40px;
+
+    text-align: center;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* GRADIENT BORDER LAYER */
+.badge-header::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+
+    border-radius: 40px;
+
+    background: linear-gradient(135deg, #3C6E71, #2a4f52);
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    z-index: -1;
+}
+
+.badge-header h3{
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+/* =========================
+   RARITY COLORS (OPTIONAL)
+========================= */
+.badge-card:nth-child(1)::before{ background:#f59e0b; }
+.badge-card:nth-child(2)::before{ background:#06b6d4; }
+.badge-card:nth-child(3)::before{ background:#6366f1; }
+.badge-card:nth-child(4)::before{ background:#22c55e; }
+.badge-card:nth-child(5)::before{ background:#ef4444; }
+.badge-card:nth-child(6)::before{ background:#8b5cf6; }
+.badge-card:nth-child(7)::before{ background:#10b981; }
+.badge-card:nth-child(8)::before{ background:#f43f5e; }
+.badge-card:nth-child(9)::before{ background:#3b82f6; }
+.badge-card:nth-child(10)::before{ background:#eab308; }
+
+/* =========================
+   IMAGE BORDER COLORS
+========================= */
+.badge-card:nth-child(1) .badge-img-wrap{ border-color:#fde68a; }
+.badge-card:nth-child(2) .badge-img-wrap{ border-color:#a5f3fc; }
+.badge-card:nth-child(3) .badge-img-wrap{ border-color:#c7d2fe; }
+.badge-card:nth-child(4) .badge-img-wrap{ border-color:#bbf7d0; }
+.badge-card:nth-child(5) .badge-img-wrap{ border-color:#fecaca; }
+.badge-card:nth-child(6) .badge-img-wrap{ border-color:#ddd6fe; }
+.badge-card:nth-child(7) .badge-img-wrap{ border-color:#a7f3d0; }
+.badge-card:nth-child(8) .badge-img-wrap{ border-color:#fecdd3; }
+.badge-card:nth-child(9) .badge-img-wrap{ border-color:#bfdbfe; }
+.badge-card:nth-child(10) .badge-img-wrap{ border-color:#fef9c3; }
+
+/* =========================
+   TITLE COLOR BY RANK
+========================= */
+.badge-card:nth-child(1) .badge-title{ color:#f59e0b; }
+.badge-card:nth-child(2) .badge-title{ color:#06b6d4; }
+.badge-card:nth-child(3) .badge-title{ color:#6366f1; }
+.badge-card:nth-child(4) .badge-title{ color:#22c55e; }
+.badge-card:nth-child(5) .badge-title{ color:#ef4444; }
+.badge-card:nth-child(6) .badge-title{ color:#8b5cf6; }
+.badge-card:nth-child(7) .badge-title{ color:#10b981; }
+.badge-card:nth-child(8) .badge-title{ color:#f43f5e; }
+.badge-card:nth-child(9) .badge-title{ color:#3b82f6; }
+.badge-card:nth-child(10) .badge-title{ color:#eab308; }
+
+/* =========================
+   MOBILE FIXES
+========================= */
+@media (max-width: 480px){
+
+    .badge-card{
+        padding:14px;
+    }
+
+    .badge-img-wrap{
+        width:78px;
+        height:78px;
+    }
+
+    .badge-title{
+        font-size:0.85rem;
+    }
+
+    .badge-xp{
+        font-size:0.7rem;
+    }
+}
+.progress-btn-wrap{
+    position:absolute;
+    top:12px;
+    right:12px;
+}
+
+.progress-btn{
+    background:#3C6E71;
+    color:#fff;
+
+    border:none;
+    padding:6px 10px;
+
+    font-size:.75rem;
+    border-radius:8px;
+    opacity:1 !important;
+
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(60,110,113,.25);
+
+    cursor:pointer !important;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    transition:.2s ease;
+}
+
+.progress-btn:hover{
+    background:#2f5557;
+    transform:translateY(-2px);
+}
+.history-circle-progress {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+}
+.page-header{
+    display:flex;
+    align-items:center;
+    gap:16px;
+
+    padding:18px 22px;
+
+    background:#FAF9F6;
+
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+/* BACK BUTTON */
+.back-btn{
+    width:42px;
+    height:42px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    color:#3C6E71;
+
+    background:rgba(46, 45, 45, 0.15);
+
+    backdrop-filter:blur(8px);
+
+    transition:.25s ease;
+
+    z-index:2;
+}
+
+.back-btn:hover{
+    transform:translateX(-3px);
+
+    background:rgba(46, 45, 45, 0.15);
+}
+
+
+
+/* TITLE AREA */
+.header-content{
+    display:flex;
+    flex-direction:column;
+}
+
+.header-content h1{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    margin:0;
+    font-size:1.8rem;
+    font-weight:800;
+    color:#353535;
+}
+
+.header-content h1 .fa-css3-alt{
+    color:#1572B6;
+    font-size:1.9rem;
+}
+
+.header-content p{
+    margin:4px 0 0;
+    color:#6b7280;
+    font-size:.95rem;
+}
+/* =========================
+   RESPONSIVE HEADER
+========================= */
+
+@media (max-width: 768px){
+
+    .header-content h1{
+        font-size:1.4rem;
+        gap:8px;
+        flex-wrap:wrap;
+    }
+
+    .header-content h1 .fa-css3-alt{
+        font-size:1.5rem;
+    }
+
+    .header-content p{
+        font-size:.85rem;
+        line-height:1.4;
+    }
+
+}
+
+@media (max-width: 480px){
+
+    .header-content{
+        width:100%;
+    }
+
+    .header-content h1{
+        font-size:1.2rem;
+        gap:6px;
+    }
+
+    .header-content h1 .fa-css3-alt{
+        font-size:1.3rem;
+    }
+
+    .header-content p{
+        font-size:.8rem;
+        margin-top:2px;
+    }
+
+}
+
+.loading-modal{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(6px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:99999;
+}
+
+.loading-modal.hidden{
+    display:none;
+}
+
+.loading-card{
+    width:90%;
+    max-width:420px;
+
+    background:#fff;
+    border-radius:25px;
+    padding:40px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+}
+
+.loading-icon{
+    width:80px;
+    height:80px;
+
+    margin:auto auto 20px;
+
+    background:#3C6E71;
+    color:#fff;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:2rem;
+
+    animation:pulse 1.2s infinite;
+}
+
+.loading-card h2{
+    margin-bottom:10px;
+    color:#284B63;
+}
+
+.loading-card p{
+    color:#666;
+    margin-bottom:30px;
+}
+
+.progress-bar{
+    width:100%;
+    height:14px;
+
+    background:#e8e8e8;
+    border-radius:30px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #3C6E71,
+        #284B63
+    );
+
+    transition:width .25s ease;
+}
+
+.progress-text{
+    margin-top:15px;
+    font-weight:700;
+    color:#284B63;
+    font-size:1.1rem;
+}
+
+@keyframes pulse{
+    0%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.1);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-header">
+
+        <a href="javascript:history.back()" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <div class="header-content">
+           <h1>
+         <i class="fa-brands fa-css3-alt"></i>
+        CSS Dashboard
+    </h1>
+        <p>Welcome to CSS Learning Module Quiz</p>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <!-- EASY -->
+<div class="box easy"
+    {% if not easy_done %}
+        onclick="openQuiz('easy')"
+        style="cursor: pointer;"
+      
+    {% endif %}>
+
+    <!-- Difficulty Badge -->
+    <div class="quiz-header">
+
+        <span class="difficulty-badge easy-badge">
+            <i class="fa-solid fa-seedling"></i>
+            Beginner Challenge
+        </span>
+
+         <div class="progress-btn-wrap">
+{% if easy_done %}
+    <button class="progress-btn" onclick="openProgressModal('easy')">
+        <i class="fa-solid fa-chart-line"></i>
+        View Progress
+    </button>
+      {% endif %}
+
+
+</div>
+
+        <h3>{{ easy_quiz.title }}</h3>
+
+        <p class="quiz-subject">
+            <i class="fa-solid fa-book"></i>
+            {{ easy_quiz.subject }}
+        </p>
+
+    </div>
+
+    <!-- Description -->
+    <p class="quiz-description">
+        {{ easy_quiz.description }}
+    </p>
+
+    <!-- Quiz Information -->
+
+    <div class="quiz-info">
+
+        <div class="info-item">
+            <i class="fa-regular fa-clock"></i>
+            <span>45 Seconds Per Question</span>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-list-check"></i>
+            <span>15 Questions</span>
+        </div>
+
+        <div class="info-item xp">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Earn 30 XP Per Correct Answer</span>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Pass at 60% or Higher</span>
+        </div>
+
+    </div>
+         {% if not easy_done %}
+
+    <!-- Motivation CTA -->
+    <div class="cta-area">
+
+        <strong>
+            <i class="fa-solid fa-rocket"></i>
+            Unlock XP and Build Your Skills
+        </strong>
+
+        <span>
+            Complete this challenge to gain rewards,
+            improve your knowledge, and unlock harder quizzes.
+        </span>
+
+    </div>
+          {% endif %}
+
+    <!-- Status -->
+    <div class="quiz-status-wrapper">
+
+        {% if easy_done %}
+
+            {% if easy_attempt.score >= 60 %}
+
+                <span class="quiz-status success">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Challenge Completed
+                </span>
+
+            {% else %}
+
+                <span class="quiz-status failed">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    Keep Learning
+                </span>
+
+            {% endif %}
+
+        {% else %}
+
+            <span class="quiz-status available">
+                <i class="fa-solid fa-play"></i>
+                Ready to Start
+            </span>
+
+        {% endif %}
+
+    </div>
+
+    <!-- Previous Attempt -->
+    {% if easy_attempt %}
+    <button class="analytics-btn" onclick="toggleAnalytics('historyMini', this)">
+   
+    Analytics <i class="fa-solid fa-chevron-right"></i>
+</button>
+
+<div id="historyMini" class="history-mini analytics-hidden">
+
+     <div class="history-mini">
+
+        <div class="history-title">
+            <i class="fa-solid fa-chart-line"></i>
+            Your Latest Performance
+        </div>
+
+        <div class="history-row">
+            <span>Correct Answers</span>
+            <strong>
+                {{ easy_attempt.correct_answers }}
+                /
+                {{ easy_attempt.total_questions }}
+            </strong>
+        </div>
+
+        <div class="history-row">
+            <span>Accuracy</span>
+            <strong>
+                {{ easy_attempt.score|floatformat:0 }}%
+            </strong>
+        </div>
+
+        <div class="history-row">
+            <span>XP Earned</span>
+            <strong>
+                +{{ easy_attempt.xp_earned }}
+            </strong>
+        </div>
+
+        <div class="history-row">
+            <span>Completed</span>
+            <strong>
+                {{ easy_attempt.created_at|date:"M d, Y" }}
+            </strong>
+        </div>
+
+        <!-- Progress Bar -->
+
+        <div class="progress-mini">
+
+            <div class="progress-label">
+
+                <span>Performance</span>
+
+                <span>
+                    {{ easy_attempt.score|floatformat:0 }}%
+                </span>
+
+            </div>
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-fill"
+                    style="width:{{ easy_attempt.score|floatformat:0 }}%;">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+   
+    {% endif %}
+
+    <!-- Footer CTA -->
+
+    {% if not easy_done %}
+
+<div class="quiz-footer">
+
+   <span style="color:#f97316;">
+    <i class="fa-solid fa-circle-info"></i>
+    Important: If you close the quiz, your current progress will stop and you may need to restart the attempt.
+</span>
+
+    <span>
+        Start Challenge
+        <i class="fa-solid fa-arrow-right"></i>
+    </span>
+
+</div>
+
+{% endif %}
+
+</div>
+
+    <!-- MEDIUM -->
+<!-- MEDIUM --><div class="box medium"
+    {% if easy_done %}
+        {% if not medium_done %}
+            onclick="openQuiz('medium')"
+            style="cursor:pointer;"
+        {% else %}
+  
+        {% endif %}
+    {% else %}
+        style="cursor:not-allowed;opacity:0.5;"
+    {% endif %}>
+
+    <div class="quiz-header">
+
+        <span class="difficulty-badge medium-badge">
+            <i class="fa-solid fa-fire"></i>
+            Intermediate Challenge
+        </span>
+              <div class="progress-btn-wrap">
+{% if medium_done %}
+    <button class="progress-btn" onclick="openProgressModal('medium')">
+        <i class="fa-solid fa-chart-line"></i>
+        View Progress
+    </button>
+      {% endif %}
+
+
+</div>
+     
+
+        <h3>{{ medium_quiz.title }}</h3>
+
+        <p class="quiz-subject">
+            <i class="fa-solid fa-book"></i>
+            {{ medium_quiz.subject }}
+        </p>
+
+    </div>
+
+    <p class="quiz-description">
+        {{ medium_quiz.description }}
+    </p>
+
+    <div class="quiz-info">
+
+        <div class="info-item">
+            <i class="fa-regular fa-clock"></i>
+            <span>45 Seconds Per Question</span>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-list-check"></i>
+            <span>15 Questions</span>
+        </div>
+
+        <div class="info-item xp">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Earn 50 XP Per Correct Answer</span>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Pass at 60% or Higher</span>
+        </div>
+
+    </div>
+          {% if not medium_done %}
+
+    <div class="cta-area">
+
+        <strong>
+            <i class="fa-solid fa-rocket"></i>
+            Take Your Skills Further
+        </strong>
+
+        <span>
+            Complete this challenge to unlock advanced learning opportunities.
+        </span>
+
+    </div>
+           {% endif %}
+
+
+    <div class="quiz-status-wrapper">
+
+        {% if medium_done %}
+
+            {% if medium_attempt.score >= 60 %}
+
+                <span class="quiz-status success">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Challenge Completed
+                </span>
+
+            {% else %}
+
+                <span class="quiz-status failed">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    Keep Learning
+                </span>
+
+            {% endif %}
+
+        {% elif easy_done %}
+
+            <span class="quiz-status available">
+                <i class="fa-solid fa-unlock"></i>
+                Ready to Start
+            </span>
+
+        {% else %}
+
+            <span class="quiz-status failed">
+                <i class="fa-solid fa-lock"></i>
+                Complete Beginner Challenge First
+            </span>
+
+        {% endif %}
+
+    </div>
+
+    {% if medium_attempt %}
+
+    <button class="analytics-btn" onclick="toggleAnalytics('mediumAnalytics', this)">
+        Analytics <i class="fa-solid fa-chevron-right"></i>
+</button>
+
+<div id="mediumAnalytics" class="history-mini analytics-hidden">
+
+
+
+        <div class="history-title">
+            <i class="fa-solid fa-chart-line"></i>
+            Your Latest Performance
+        </div>
+
+        <div class="history-row">
+            <span>Correct Answers</span>
+            <strong>{{ medium_attempt.correct_answers }}/{{ medium_attempt.total_questions }}</strong>
+        </div>
+
+        <div class="history-row">
+            <span>Accuracy</span>
+            <strong>{{ medium_attempt.score|floatformat:0 }}%</strong>
+        </div>
+
+        <div class="history-row">
+            <span>XP Earned</span>
+            <strong>+{{ medium_attempt.xp_earned }}</strong>
+        </div>
+
+        <div class="history-row">
+            <span>Completed</span>
+            <strong>{{ medium_attempt.created_at|date:"M d, Y" }}</strong>
+        </div>
+
+        <div class="progress-mini">
+
+            <div class="progress-label">
+
+                <span>Performance</span>
+
+                <span>
+                    {{ medium_attempt.score|floatformat:0 }}%
+                </span>
+
+            </div>
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-fill"
+                    style="width:{{ medium_attempt.score|floatformat:0 }}%;">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+        
+
+    {% endif %}
+
+    
+    {% if not medium_done %}
+
+<div class="quiz-footer">
+
+   <span style="color:#f97316;">
+    <i class="fa-solid fa-circle-info"></i>
+    Important: If you close the quiz, your current progress will stop and you may need to restart the attempt.
+</span>
+
+    <span>
+        Start Challenge
+        <i class="fa-solid fa-arrow-right"></i>
+    </span>
+
+</div>
+
+{% endif %}
+
+
+</div>
+    <!-- HARD -->
+ <!-- HARD -->
+  <div class="box hard"
+    {% if medium_done %}
+        {% if not hard_done %}
+            onclick="openQuiz('hard')"
+            style="cursor:pointer;"
+        {% else %}
+       
+        {% endif %}
+    {% else %}
+        style="cursor:not-allowed;opacity:0.5;"
+    {% endif %}>
+
+    <div class="quiz-header">
+
+        <span class="difficulty-badge hard-badge">
+            <i class="fa-solid fa-crown"></i>
+            Advanced Challenge
+        </span>
+        <div class="progress-btn-wrap">
+{% if hard_done %}
+    <button class="progress-btn" onclick="openProgressModal('hard')">
+        <i class="fa-solid fa-chart-line"></i>
+        View Progress
+    </button>
+      {% endif %}
+
+
+</div>
+
+        <h3>{{ hard_quiz.title }}</h3>
+
+        <p class="quiz-subject">
+            <i class="fa-solid fa-book"></i>
+            {{ hard_quiz.subject }}
+        </p>
+
+    </div>
+
+    <p class="quiz-description">
+        {{ hard_quiz.description }}
+    </p>
+
+    <div class="quiz-info">
+
+        <div class="info-item">
+            <i class="fa-regular fa-clock"></i>
+            <span>60 Seconds Per Question</span>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-list-check"></i>
+            <span>10 Questions</span>
+        </div>
+
+        <div class="info-item xp">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Earn 75 XP Per Correct Answer</span>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Pass at 60% or Higher</span>
+        </div>
+
+    </div>
+   {% if not hard_done %}
+    <div class="cta-area">
+
+        <strong>
+            <i class="fa-solid fa-crown"></i>
+            Master the Challenge
+        </strong>
+
+        <span>
+            Push your limits, earn maximum XP, and prove your expertise.
+        </span>
+
+    </div>
+          {% endif %}
+
+    <div class="quiz-status-wrapper">
+
+        {% if hard_done %}
+
+            {% if hard_attempt.score >= 60 %}
+
+                <span class="quiz-status success">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Challenge Completed
+                </span>
+
+            {% else %}
+
+                <span class="quiz-status failed">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    Keep Learning
+                </span>
+
+            {% endif %}
+
+        {% elif medium_done %}
+
+            <span class="quiz-status available">
+                <i class="fa-solid fa-unlock"></i>
+                Ready to Start
+            </span>
+
+        {% else %}
+
+            <span class="quiz-status failed">
+                <i class="fa-solid fa-lock"></i>
+                Complete Intermediate Challenge First
+            </span>
+
+        {% endif %}
+
+    </div>
+
+    {% if hard_attempt %}
+
+    <button class="analytics-btn" onclick="toggleAnalytics('hardAnalytics', this)">
+   
+    Analytics <i class="fa-solid fa-chevron-right"></i>
+</button>
+
+<div id="hardAnalytics" class="history-mini analytics-hidden">
+
+        <div class="history-title">
+            <i class="fa-solid fa-chart-line"></i>
+            Your Latest Performance
+        </div>
+
+        <div class="history-row">
+            <span>Correct Answers</span>
+            <strong>{{ hard_attempt.correct_answers }}/{{ hard_attempt.total_questions }}</strong>
+        </div>
+
+        <div class="history-row">
+            <span>Accuracy</span>
+            <strong>{{ hard_attempt.score|floatformat:0 }}%</strong>
+        </div>
+
+        <div class="history-row">
+            <span>XP Earned</span>
+            <strong>+{{ hard_attempt.xp_earned }}</strong>
+        </div>
+
+        <div class="history-row">
+            <span>Completed</span>
+            <strong>{{ hard_attempt.created_at|date:"M d, Y" }}</strong>
+        </div>
+
+          <div class="progress-mini">
+
+            <div class="progress-label">
+
+                <span>Performance</span>
+
+                <span>
+                    {{ hard_attempt.score|floatformat:0 }}%
+                </span>
+
+            </div>
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-fill"
+                    style="width:{{ hard_attempt.score|floatformat:0 }}%;">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+   
+
+
+    {% endif %}
+
+    
+    {% if not hard_done %}
+
+<div class="quiz-footer">
+
+   <span style="color:#f97316;">
+    <i class="fa-solid fa-circle-info"></i>
+    Important: If you close the quiz, your current progress will stop and you may need to restart the attempt.
+</span>
+
+    <span>
+        Start Challenge
+        <i class="fa-solid fa-arrow-right"></i>
+    </span>
+
+</div>
+
+{% endif %}
+   
+</div>
+</div>
+
+
+
+<!-- MODAL --><div id="quizModal" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2 id="quizTitle"></h2>
+
+            <button class="close-btn" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <form id="quizForm" method="POST">
+            {% csrf_token %}
+
+            <div id="quizContent"></div>
+            <div class="quiz-actions">
+
+</div>
+
+        </form>
+
+    </div>
+</div>
+<div id="loadingModal" class="loading-modal hidden">
+
+    <div class="loading-card">
+
+        <div class="loading-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+
+        <h2>Checking Your Answers...</h2>
+        <p>Please wait while we calculate your score.</p>
+
+        <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+        </div>
+
+        <div id="progressText" class="progress-text">
+            0%
+        </div>
+
+    </div>
+
+</div>
+<div id="resultModal" class="result-modal hidden">
+
+    <div class="result-box">
+
+        <div class="result-header">
+            <div class="title-wrap">
+                <i class="fa-solid fa-trophy trophy-icon"></i>
+                <div>
+                    <h2>Quiz Complete</h2>
+                    <span class="subtitle">Performance Summary</span>
+                </div>
+            </div>
+
+            <button class="close-btn" onclick="closeResultModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- RANK BADGE -->
+        <div class="rank-badge" id="rankBadge">
+            <i class="fa-solid fa-medal"></i>
+            <span>Rookie Learner</span>
+        </div>
+
+        <!-- GRID -->
+        <div id="resultText" class="result-grid"></div>
+
+        <!-- XP BAR -->
+ <!-- XP GAMIFIED CARD -->
+<!-- XP GAMIFIED CARD -->
+<div class="xp-card">
+
+    <div class="xp-top">
+
+        <div>
+            <div class="xp-title">
+                <i class="fa-solid fa-bolt"></i>
+                XP Progress
+            </div>
+
+            <div class="xp-level">
+                Level <span id="levelText">1</span>
+            </div>
+        </div>
+
+        <div class="xp-earned">
+            +<span id="xpEarnedText">0</span> XP
+        </div>
+
+    </div>
+
+    <div class="xp-numbers">
+        <span id="currentXPText">0 XP</span>
+        <span id="nextLevelXPText">250 XP</span>
+    </div>
+
+    <div class="xp-bar">
+        <div class="xp-fill"></div>
+    </div>
+
+    <div class="xp-footer">
+
+        <span id="xpPercent">0%</span>
+
+        <span id="xpRemainingText">
+            250 XP to next level
+        </span>
+
+    </div>
+
+</div>
+
+        <!-- BADGES --><div class="badge-header" id="badgeHeader" style="display:none;">
+    <h3>
+        <i class="fa-solid fa-trophy"></i>
+        Your Achievements
+    </h3></div>
+        <div class="badge-section" id="badgeSection"></div>
+
+        <button class="result-btn" onclick="closeResultModal()">
+            Continue
+        </button>
+
+    </div>
+</div>
+
+<div id="explainModal" class="modal-overlay hidden">
+    <div class="modal-box">
+
+        <button class="modal-close" onclick="closeExplanation()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h3 class="modal-title">
+            <i class="fa-solid fa-circle-info"></i>
+            Explanation
+        </h3>
+
+        <div id="modalExplanationText" class="modal-body"></div>
+
+    </div>
+</div>
+
+<div id="progressModal" class="result-modal hidden">
+
+    <div class="result-box">
+
+        <div class="result-header">
+            <div class="title-wrap">
+                <i class="fa-solid fa-chart-line trophy-icon"></i>
+                <div>
+                    <h2>Progress History</h2>
+                    <span class="subtitle">Your learning journey</span>
+                </div>
+            </div>
+
+            <button class="close-btn" onclick="closeProgressModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="rank-badge" id="historyRankBadge">
+            <i class="fa-solid fa-medal"></i>
+            <span>Learner Progress</span>
+        </div>
+
+        <!-- SAME STRUCTURE -->
+       <div id="historyResultText" class="result-grid"></div>
+
+        <div class="xp-card">
+
+            <div class="xp-top">
+
+                <div>
+                    <div class="xp-title">
+                        <i class="fa-solid fa-bolt"></i>
+                        XP Progress
+                    </div>
+
+                    <div class="xp-level">
+                        Level <span id="historyLevelText">1</span>
+                    </div>
+                </div>
+
+                <div class="xp-earned">
+                    +<span id="historyXpEarnedText">0</span> XP
+                </div>
+
+            </div>
+
+            <div class="xp-numbers">
+                <span id="historyCurrentXPText">0 XP</span>
+                <span id="historyNextLevelXPText">250 XP</span>
+            </div>
+
+            <div class="xp-bar">
+                <div class="xp-fill" id="historyXpFill"></div>
+            </div>
+
+            <div class="xp-footer">
+
+                <span id="historyXpPercent">0%</span>
+
+                <span id="historyXpRemainingText">
+                    250 XP to next level
+                </span>
+
+            </div>
+
+        </div>
+      <!-- BADGES --><div class="badge-header" id="historyBadgeHeader" style="display:none;">
+    <h3>
+        <i class="fa-solid fa-trophy"></i>
+        Your Achievements
+    </h3></div>
+        <div class="badge-section" id="historyBadgeSection"></div>
+
+        <button class="result-btn" onclick="closeProgressModal()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+let currentQuiz = null;
+let questions = [];
+let currentIndex = 0;
+let answers = {};
+
+const quizzes = {
+    easy: {
+        id: "{{ easy_quiz.id|default:'' }}",
+        title: "Easy Quiz"
+    },
+    medium: {
+        id: "{{ medium_quiz.id|default:'' }}",
+        title: "Medium Quiz"
+    },
+    hard: {
+        id: "{{ hard_quiz.id|default:'' }}",
+        title: "Hard Quiz"
+    }
+};
+
+function escapeHTML(str) {
+    if (!str) return "";
+
+    return str
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+/* =========================
+   RENDER CODE SNIPPET
+========================= */
+function renderCodeSnippet(code, questionId) {
+
+    let safeCode = escapeHTML(code);
+
+    safeCode = safeCode.replace(
+        /\[\[BLANK\]\]/g,
+        `<input
+            type="text"
+            name="q_${questionId}"
+            class="blank-input"
+            onkeydown="if(event.key==='Enter') event.preventDefault();"
+        >`
+    );
+
+    return `
+        <pre class="code-block">
+<code>${safeCode}</code>
+        </pre>
+    `;
+}
+
+function shuffleArray(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
+}
+
+let timer = 10;
+let timerInterval = null;
+
+function openQuiz(level) {
+
+    const quiz = quizzes[level];
+
+    if (!quiz.id) {
+        alert("No quiz available for " + level);
+        return;
+    }
+
+
+    currentQuiz = quiz;
+    currentIndex = 0;
+    answers = {};
+
+    document.getElementById("quizModal").classList.add("show");
+    document.getElementById("quizTitle").innerText = quiz.title;
+
+    fetch(`/quiz-data/${quiz.id}/`)
+        .then(res => res.json())
+        .then(data => {
+            questions = shuffleArray(data.questions);
+
+            currentIndex = 0;
+            answers = {};
+            showQuestion();
+        });
+}
+
+/* =========================
+   SHOW QUESTION
+========================= */
+function showQuestion() {
+    startTimer();
+
+    const q = questions[currentIndex];
+
+    let html = "";
+
+    /* =========================
+       WARNING
+    ========================= */
+    html += `<div id="warningArea" class="warning-area"></div>`;
+
+    /* =========================
+       FEEDBACK (TOP)
+    ========================= */
+
+
+    /* =========================
+       HEADER + PROGRESS
+    ========================= */
+
+    const progressPercent =
+        ((currentIndex + 1) / questions.length) * 100;
+
+    html += `
+    <div class="quiz-top">
+
+        <div class="quiz-meta">
+            <div class="quiz-title">
+                Question ${currentIndex + 1} of ${questions.length}
+            </div>
+
+            <div class="quiz-timer">
+                <i class="fa-solid fa-clock"></i>
+                <span id="timer">${timer}</span>s
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" style="width:${progressPercent}%"></div>
+        </div>
+
+        <div class="progress-text">
+            ${Math.round(progressPercent)}% completed
+        </div>
+
+    </div>
+    `;
+
+    /* =========================
+       QUESTION
+    ========================= */
+
+    html += `
+    <div class="question-card">
+
+        <div class="question-text">
+            ${escapeHTML(q.question_text)}
+        </div>
+            <div id="explanationArea"></div>
+    `;
+if (q.code_snippet) {
+    html += `
+    <div class="code-wrapper">
+
+        <div class="code-header">
+            <div class="code-title">
+                <i class="fa-solid fa-code"></i>
+                Code Snippet
+            </div>
+
+       <div class="code-lang">
+    ${q.subject || "Code"}
+</div>
+        </div>
+
+        ${renderCodeSnippet(q.code_snippet, q.id)}
+
+    </div>
+    `;
+}
+
+    html += `</div>`;
+
+    /* =========================
+       ANSWERS
+    ========================= */
+
+    html += `<div class="answer-section">`;
+
+    if (q.question_type === "MCQ") {
+
+        q.choices.forEach(c => {
+
+            const checked = answers[q.id] == c.id ? "checked" : "";
+
+            html += `
+            <label class="choice-card">
+                <input type="radio" name="q_${q.id}" value="${c.id}" ${checked}>
+                <span class="choice-text">
+                 
+                    ${escapeHTML(c.choice_text)}
+                </span>
+            </label>
+            `;
+        });
+    }
+
+    html += `</div>`;
+
+    /* =========================
+       SUBMIT BUTTON (RESTORED)
+    ========================= */
+
+html += `
+  <div class="quiz-actions">
+    <button type="button" id="actionBtn" onclick="checkAnswer()">
+        Submit Answer
+    </button>
+</div>
+`;
+
+    /* =========================
+       NOTE
+    ========================= */
+
+    html += `
+    <div class="quiz-note">
+        <i class="fa-solid fa-circle-info"></i>
+        Submit your answer to continue
+    </div>
+    `;
+
+    document.getElementById("quizContent").innerHTML = html;
+}
+
+function checkAnswer() {
+
+    const q = questions[currentIndex];
+
+    let userAnswer = null;
+
+    /* =========================
+       MCQ ONLY (UPDATED UI LOGIC)
+    ========================= */
+    if (q.question_type === "MCQ") {
+
+        const selected = document.querySelector(
+            `input[name="q_${q.id}"]:checked`
+        );
+
+    if (!selected) {
+    const warning = document.getElementById("warningArea");
+
+    warning.style.display = "block";
+    warning.innerHTML = `
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Please select an answer first
+    `;
+    return;
+}
+        userAnswer = selected.value;
+        answers[q.id] = userAnswer;
+
+        const correctChoice = q.choices.find(c => c.is_correct);
+        const selectedChoice = q.choices.find(c => c.id == userAnswer);
+
+        const isCorrect = correctChoice.id == userAnswer;
+
+        // disable all inputs
+        document.querySelectorAll(`input[name="q_${q.id}"]`)
+            .forEach(i => i.disabled = true);
+
+        // update UI instantly
+        renderChoiceResult(q, selectedChoice, correctChoice, isCorrect);
+        if (!isCorrect) {
+            showExplanationButton(q);
+        }
+        const isLast = currentIndex >= questions.length - 1;
+        const btn = document.getElementById("actionBtn");
+
+if (isLast) {
+    btn.innerText = "Submit Quiz";
+    btn.onclick = submitQuiz;
+} else {
+   btn.innerHTML = `
+    Next Question
+    <i class="fa-solid fa-arrow-right"></i>
+`;
+    btn.onclick = nextQuestion;
+}
+    }
+
+    /* =========================
+       TEXT INPUT
+    ========================= */
+    else {
+
+        const input = document.querySelector(`input[name="q_${q.id}"]`);
+        const userText = input ? input.value.trim() : "";
+
+        if (!userText) {
+            const warning = document.getElementById("warningArea");
+            warning.style.display = "block";
+            warning.innerHTML = `
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Please enter your answer first
+            `;
+            return;
+        }
+        answers[q.id] = { blank: userText };
+
+        const correct = (q.correct_answer || "").trim();
+        const isCorrect =
+            userText.toLowerCase() === correct.toLowerCase();
+
+        document.querySelector(`input[name="q_${q.id}"]`).disabled = true;
+
+        renderTextResult(q, userText, correct, isCorrect);
+        if (!isCorrect) {
+    showExplanationButton(q);
+}
+                // visually confirm answer submitted
+                const isLast = currentIndex >= questions.length - 1;
+        const btn = document.getElementById("actionBtn");
+
+if (isLast) {
+    btn.innerText = "Submit Quiz";
+    btn.onclick = submitQuiz;
+} else {
+    btn.innerHTML = `
+    Next Question
+    <i class="fa-solid fa-arrow-right"></i>
+`;
+    btn.onclick = nextQuestion;
+}
+
+    }
+    isPaused = true;
+}
+function renderTextResult(q, userText, correct, isCorrect) {
+
+    const input = document.querySelector(`input[name="q_${q.id}"]`);
+
+    input.value = userText;
+    input.disabled = true;
+
+    input.style.border =
+        isCorrect ? "2px solid #22c55e" : "2px solid #ef4444";
+}
+function renderChoiceResult(q, selectedChoice, correctChoice, isCorrect) {
+
+    document.querySelectorAll(`input[name="q_${q.id}"]`).forEach(input => {
+
+        const label = input.closest("label");
+        const choice = q.choices.find(c => c.id == input.value);
+
+        // reset base class
+        label.style.border = "1px solid #D9D9D9";
+
+        let icon = "";
+
+        // ✔ correct answer highlight
+        if (choice.is_correct) {
+            label.style.border = "2px solid #22c55e";
+            label.style.background = "#f0fdf4";
+
+            icon = `<i class="fa-solid fa-check" style="color:#22c55e;margin-left:8px;"></i>`;
+        }
+
+        // ❌ wrong selected answer
+        if (input.checked && !isCorrect) {
+            label.style.border = "2px solid #ef4444";
+            label.style.background = "#fef2f2";
+
+            icon = `<i class="fa-solid fa-xmark" style="color:#ef4444;margin-left:8px;"></i>`;
+        }
+
+        const text = label.querySelector(".choice-text");
+
+        text.innerHTML = `${escapeHTML(choice.choice_text)} ${icon}`;
+    });
+}
+function showExplanationButton(q) {
+
+    const container = document.getElementById("explanationArea");
+    if (!container) return;
+
+  container.innerHTML = `
+    <button type="button" class="explain-btn" id="explainBtn">
+        <i class="fa-solid fa-circle-info"></i>
+        View Explanation
+    </button>
+`;
+document.getElementById("explainBtn").onclick = (e) => {
+    e.preventDefault(); // extra safety
+    openExplanation(q.explanation);
+};
+}
+
+function continueQuiz() {
+
+    if (currentIndex < questions.length - 1) {
+
+        currentIndex++;
+        timer = 30;
+        showQuestion();
+
+    } else {
+
+        submitQuiz();
+    }
+
+}
+
+let isPaused = false;
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+    const isHard = currentQuiz.title.toLowerCase().includes("hard");
+    timer = isHard ? 60 : 45;
+
+    timerInterval = setInterval(() => {
+
+        // ⛔ STOP COUNTING WHEN PAUSED
+        if (isPaused) return;
+
+        timer--;
+
+        const timerEl = document.getElementById("timer");
+
+        if (timerEl) {
+            timerEl.innerText = timer;
+        }
+
+        if (timer <= 0) {
+
+            clearInterval(timerInterval);
+
+            saveAnswer();
+
+            if (currentIndex >= questions.length - 1) {
+                submitQuiz();
+            } else {
+                currentIndex++;
+                showQuestion();
+            }
+        }
+
+    }, 1000);
+}
+function saveAnswer() {
+
+    const q = questions[currentIndex];
+
+    if (q.question_type === "MCQ") {
+
+        const selectedRadio = document.querySelector(`input[name="q_${q.id}"]:checked`);
+        answers[q.id] = selectedRadio ? selectedRadio.value : null;
+
+    } else {
+
+        // SYNTAX OR BLANK TYPE
+        const textInput = document.querySelector(`input[name="q_${q.id}"]`);
+        const blankInput = document.querySelector(`input[name="blank_${q.id}"]`);
+
+        answers[q.id] = {
+            text: textInput ? textInput.value : "",
+            blank: blankInput ? blankInput.value : ""
+        };
+    }
+}
+
+function nextQuestion() {
+
+    clearInterval(timerInterval);
+
+    saveAnswer();
+
+    currentIndex++;
+
+    if (currentIndex >= questions.length) {
+        submitQuiz(); // safety end
+        return;
+    }
+
+    showQuestion();
+    isPaused = false;
+}
+let isSubmitting = false;
+
+function renderResultUI(data, percent, passed) {
+
+    const resultText = document.getElementById("resultText");
+
+    resultText.innerHTML = `
+        <div class="result-card performance-card">
+
+            <div class="circle-wrap">
+                <svg class="circle" viewBox="0 0 36 36">
+
+                    <path class="circle-progress"
+    d="M18 2.0845
+       a 15.9155 15.9155 0 0 1 0 31.831
+       a 15.9155 15.9155 0 0 1 0 -31.831"
+    stroke-dasharray="100"
+    stroke-dashoffset="100" />
+
+                    <path class="circle-progress"></path>
+
+                </svg>
+
+                <div class="circle-text">
+                    <strong id="scorePercent">${percent}%</strong>
+                    <span>Score</span>
+                </div>
+            </div>
+
+            <div class="perf-item">
+                <span>Correct</span>
+                <strong>${data.correct}/${data.total}</strong>
+            </div>
+
+            <div class="perf-item">
+                <span>Accuracy</span>
+                <strong>${percent}%</strong>
+            </div>
+
+        </div>
+
+        <div class="result-card status-strip">
+
+            <div class="status-item">
+                <i class="fa-solid fa-layer-group"></i>
+                <div>
+                    <span>Level</span>
+                    <strong>${data.level}</strong>
+                </div>
+            </div>
+
+            <div class="status-item">
+                <i class="fa-solid fa-signal"></i>
+                <div>
+                    <span>Difficulty</span>
+                    <strong>${data.difficulty}</strong>
+                </div>
+            </div>
+
+            <div class="status-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                    <span>Status</span>
+                    <strong style="color:${passed ? '#16a34a' : '#dc2626'}">
+                        ${passed ? 'Passed' : 'Failed'}
+                    </strong>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+
+function animateXP(data) {
+
+    const currentXP = data.total_xp - data.xp_earned;
+    const newXP = data.total_xp;
+
+    const level = data.level;
+
+    const levelXP = (level - 1) * 250;
+    const nextLevelXP = level * 250;
+
+    const progressXP = newXP - levelXP;
+    const neededXP = nextLevelXP - levelXP;
+    
+    const progressPercent =
+        Math.min(Math.round((progressXP / neededXP) * 100), 100);
+
+    // UI text updates
+    document.getElementById("levelText").innerText = level;
+    document.getElementById("xpEarnedText").innerText = data.xp_earned;
+    document.getElementById("nextLevelXPText").innerText = nextLevelXP + " XP";
+    const xpRemaining = nextLevelXP - newXP;
+
+    document.getElementById("xpRemainingText").innerText =
+    `${xpRemaining} XP to next level`;
+
+    const xpFill = document.querySelector(".xp-fill");
+    const xpText = document.getElementById("currentXPText");
+
+    // 🟩 RESET FIRST (IMPORTANT FOR ANIMATION)
+    xpFill.style.transition = "none";
+    xpFill.style.width = "0%";
+    xpText.innerText = currentXP + " XP";
+
+    // FORCE DOM REFRESH (VERY IMPORTANT)
+    xpFill.getBoundingClientRect();
+
+    // 🟩 START BAR ANIMATION (1 SECOND)
+    setTimeout(() => {
+        xpFill.style.transition = "width 1s ease";
+        xpFill.style.width = progressPercent + "%";
+        document.getElementById("xpPercent").innerText = progressPercent + "%";
+    }, 50);
+
+    // 🟩 SMOOTH NUMBER COUNT (1 SECOND TIMED)
+    const duration = 1000;
+    const steps = 60;
+    const increment = (newXP - currentXP) / steps;
+
+    let xpCounter = currentXP;
+    let step = 0;
+
+    const interval = setInterval(() => {
+
+        step++;
+
+        xpCounter += increment;
+
+        if (step >= steps) {
+            xpCounter = newXP;
+            clearInterval(interval);
+        }
+
+        xpText.innerText = Math.floor(xpCounter) + " XP";
+
+    }, duration / steps);
+}
+function animateScore(percent) {
+
+    const circle = document.querySelector(".circle-progress");
+    const scoreText = document.getElementById("scorePercent");
+
+    if (!circle) return;
+
+    // ensure animation always resets first
+    circle.style.transition = "none";
+    circle.style.strokeDashoffset = 100;
+
+    // force reflow (VERY IMPORTANT)
+    circle.getBoundingClientRect();
+
+    // animate
+    circle.style.transition = "stroke-dashoffset .8s ease";
+
+    const offset = 100 - percent;
+    circle.style.strokeDashoffset = offset;
+
+    if (scoreText) {
+        scoreText.innerText = percent + "%";
+    }
+}
+function getBadgeIcon(name){
+
+    const icons = {
+        "First Steps": "fa-solid fa-star",
+        "HTML Rookie": "fa-solid fa-code",
+        "HTML Explorer": "fa-solid fa-globe",
+        "Code Apprentice": "fa-solid fa-gear",
+        "Code Warrior": "fa-solid fa-shield-halved",
+        "Frontend Builder": "fa-solid fa-paintbrush",
+        "UI Creator": "fa-solid fa-layer-group",
+        "Web Developer": "fa-solid fa-rocket",
+        "Full Stack Hero": "fa-solid fa-bolt",
+        "Programming Master": "fa-solid fa-crown"
+    };
+
+    const icon = icons[name] || "fa-solid fa-medal";
+
+    return `<i class="${icon}" style="color:#3C6E71"></i>`;
+}
+
+function submitQuiz() {
+
+        if (isSubmitting) {
+            return;
+        }
+
+        isSubmitting = true;
+
+        clearInterval(timerInterval);
+        saveAnswer();
+
+        console.log("Submitting answers:", answers);
+        showLoading();
+
+        fetch("/submit-quiz/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({
+                quiz_id: currentQuiz.id,
+                answers: answers
+            })
+        })
+        .then(res => {
+            console.log("Status:", res.status);
+            return res.json();
+        })
+        .then(data => {
+            console.log("Response:", data);
+
+
+        
+            const resultText = document.getElementById("resultText");
+
+            console.log("resultModal:", resultModal);
+            console.log("resultText:", resultText);
+            hideLoading();
+
+            document.getElementById("quizModal").style.display = "none";
+
+            const percent = data.total > 0
+                ? Math.round((data.correct / data.total) * 100)
+                : 0;
+            const passed = percent >= 60;
+
+            renderResultUI(data, percent, passed);
+
+            const modal = document.getElementById("resultModal");
+    modal.classList.remove("hidden");
+            animateXP(data);
+
+
+    /* =========================
+    SCORE + XP ANIMATION
+    ========================= */
+    setTimeout(() => {
+
+        animateScore(percent);
+
+    }, 600);
+
+
+    const badgeContainer = document.getElementById("badgeSection");
+    const badgeHeader = document.getElementById("badgeHeader");
+
+    badgeContainer.innerHTML = "";
+
+    badgeHeader.style.display = "none";
+
+    if (data.new_badges && data.new_badges.length > 0) {
+
+        badgeHeader.style.display = "block";
+
+        data.new_badges.forEach(b => {
+
+            const div = document.createElement("div");
+            div.className = "badge-card"; // IMPORTANT: match your CSS system
+
+            div.innerHTML = `
+                <div class="badge-img-wrap">
+                    <img 
+                        src="${b.image || '/static/default-badge.png'}" 
+                        alt="${b.name}"
+                        class="badge-img"
+                        onerror="this.src='/static/default-badge.png'"
+                    >
+                </div>
+
+                <div class="badge-info">
+
+                    <div class="badge-title">
+                        ${getBadgeIcon(b.name)}
+                        <span>${b.name}</span>
+                    </div>
+
+                    <div class="badge-xp">
+                        +${b.required_xp || 0} Required XP
+                    </div>
+
+                </div>
+            `;
+
+            badgeContainer.appendChild(div);
+        });
+    }
+        })
+        .catch(error => {
+            console.error("Fetch Error:", error);
+            alert("Quiz submission failed. Check console.");
+        });
+    }
+
+
+function closeResultModal() {
+    clearInterval(timerInterval);
+      document.getElementById("resultModal").classList.add("hidden");
+    location.reload();
+  
+
+}
+
+function closeModal() {
+    clearInterval(timerInterval);
+    document.getElementById("quizModal").classList.remove("show");
+  
+}
+document.addEventListener("change", function () {
+
+    const warning = document.getElementById("warningArea");
+
+    if (warning) {
+        warning.style.display = "none";
+    }
+
+});
+
+document.addEventListener("input", function () {
+
+    const warning = document.getElementById("warningArea");
+
+    if (warning) {
+        warning.style.display = "none";
+    }
+
+});
+
+function openExplanation(text) {
+
+    console.log("OPEN MODAL CLICKED");
+
+    const modal = document.getElementById("explainModal");
+    const body = document.getElementById("modalExplanationText");
+
+    if (!modal || !body) {
+        console.log("MISSING MODAL OR BODY");
+        return;
+    }
+
+    body.innerHTML = buildExplanation(text);
+
+    modal.classList.remove("hidden");
+
+    // prevent background scroll
+    document.body.style.overflow = "hidden";
+    isPaused = true;
+}
+
+
+function renderHistoryResult(data, percent, passed) {
+
+    const container =
+        document.getElementById("historyResultText");
+
+    if (!container) {
+        console.error("historyResultText not found!");
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="result-card performance-card">
+
+            <div class="circle-wrap">
+                <svg class="circle" viewBox="0 0 36 36">
+
+                    <path class="circle-bg"
+                        d="M18 2.0845
+                           a 15.9155 15.9155 0 0 1 0 31.831
+                           a 15.9155 15.9155 0 0 1 0 -31.831" />
+
+                    <path class="circle-progress history-circle-progress"
+                        d="M18 2.0845
+                           a 15.9155 15.9155 0 0 1 0 31.831
+                           a 15.9155 15.9155 0 0 1 0 -31.831" />
+
+                </svg>
+
+                <div class="circle-text">
+                    <strong id="scorePercent">${percent}%</strong>
+                    <span>Score</span>
+                </div>
+            </div>
+
+            <div class="perf-item">
+                <span>Correct</span>
+                <strong>${data.correct}/${data.total}</strong>
+            </div>
+
+            <div class="perf-item">
+                <span>Accuracy</span>
+                <strong>${percent}%</strong>
+            </div>
+
+        </div>
+
+       <div class="result-card status-strip">
+
+    <div class="status-item">
+        <div class="status-label">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Level</span>
+        </div>
+        <strong>${data.level}</strong>
+    </div>
+
+    <div class="status-item">
+        <div class="status-label">
+            <i class="fa-solid fa-signal"></i>
+            <span>Difficulty</span>
+        </div>
+        <strong>${data.difficulty}</strong>
+    </div>
+
+    <div class="status-item">
+        <div class="status-label">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Status</span>
+        </div>
+        <strong style="color:${passed ? '#16a34a' : '#dc2626'}">
+            ${passed ? 'Passed' : 'Failed'}
+        </strong>
+    </div>
+
+</div>
+    `;
+}
+
+
+let xpInterval = null;
+let scoreInterval = null;
+
+function openProgressModal(difficulty) {
+
+    if (xpInterval) clearInterval(xpInterval);
+    if (scoreInterval) clearInterval(scoreInterval);
+
+    const modal =
+        document.getElementById("progressModal");
+
+    const resultContainer =
+        document.getElementById("historyResultText");
+
+    const badgeContainer =
+        document.getElementById("historyBadgeSection");
+
+    modal.classList.remove("hidden");
+
+    // loading state
+    resultContainer.innerHTML = `
+        <p style="text-align:center;color:#6b7280;">
+            Loading progress...
+        </p>
+    `;
+
+    badgeContainer.innerHTML = "";
+
+    fetch(`/progress-history/${difficulty}/?subject=CSS`)
+        .then(res => res.json())
+        .then(data => {
+
+            console.log("History Data:", data);
+
+            if (!data.history.length) {
+
+                resultContainer.innerHTML = `
+                    <p style="text-align:center;color:#6b7280;">
+                        No progress yet.
+                    </p>
+                `;
+                return;
+            }
+
+            const latest = data.history[0];
+
+            const percent =
+                latest.score_percent || 0;
+
+            const passed =
+                latest.passed;
+
+            // render UI
+            renderHistoryResult(latest, percent, passed);
+
+            // XP animation
+            animateHistoryXP(latest);
+
+      setTimeout(() => {
+    animateHistoryScore(percent);
+}, 50);
+
+const badgeHeader =
+    document.getElementById("historyBadgeHeader");
+         badgeContainer.innerHTML = "";
+     badgeHeader.style.display = "none";
+
+if (data.badges && data.badges.length > 0) {
+
+    badgeHeader.style.display = "block";
+data.badges.forEach(b => {
+
+    const div = document.createElement("div");
+    div.className = "badge-card";
+
+    div.innerHTML = `
+    <div class="badge-img-wrap">
+        <img src="${b.image}" class="badge-img">
+        
+    </div>
+   
+
+    <div class="badge-info">
+        <div class="badge-title">
+            ${getBadgeIcon(b.badge_name)}
+            <span>${b.badge_name}</span>
+        </div>
+           <div class="badge-desc">
+            ${b.description || "No description available"}
+        </div>
+    </div>
+
+    <div class="badge-xp">
+        +${b.required_xp ?? 0} XP
+    </div>
+`;
+ console.log(b.image);
+    badgeContainer.appendChild(div);
+});
+}
+
+        })
+        .catch(err => {
+
+            console.error("Progress error:", err);
+
+            resultContainer.innerHTML = `
+                <p style="color:red;text-align:center;">
+                    Failed to load progress
+                </p>
+            `;
+        });
+}
+
+
+
+function animateHistoryScore(percent) {
+
+    if (scoreInterval) {
+        clearInterval(scoreInterval);
+    }
+
+    let current = 0;
+
+    const scoreText =
+        document.getElementById("historyScorePercent");
+
+    const circle =
+        document.querySelector(".history-circle-progress");
+
+    if (!circle) return;
+
+    circle.style.transition = "none";
+    circle.style.strokeDashoffset = 100;
+
+    circle.getBoundingClientRect();
+
+    scoreInterval = setInterval(() => {
+
+        current++;
+
+        if (current >= percent) {
+            current = percent;
+            clearInterval(scoreInterval);
+            scoreInterval = null;
+        }
+
+        if (scoreText) {
+            scoreText.innerText = current + "%";
+        }
+
+    }, 15);
+
+    setTimeout(() => {
+        circle.style.transition =
+            "stroke-dashoffset .8s ease";
+
+        circle.style.strokeDashoffset =
+            100 - percent;
+
+    }, 50);
+}
+function animateHistoryXP(latest) {
+    if (xpInterval) {
+        clearInterval(xpInterval);
+        xpInterval = null;
+    }
+
+    const level = latest.level;
+    const totalXP = latest.total_xp_after;
+    const xpEarned = latest.xp_earned;
+
+const XP_PER_LEVEL = 250;
+
+// ALWAYS compute level from totalXP
+const safeLevelStart = Math.floor(totalXP / XP_PER_LEVEL) * XP_PER_LEVEL;
+
+// progress inside current level
+const progressXP = totalXP - safeLevelStart;
+
+// percent
+const progressPercent = Math.min(
+    Math.round((progressXP / XP_PER_LEVEL) * 100),
+    100
+);
+    console.log("XP DEBUG:", {
+        level,
+        totalXP,
+        xpEarned,
+        progressXP,
+        progressPercent
+    });
+
+    // =========================
+    // UI TEXT
+    // =========================
+    document.getElementById("historyLevelText").innerText = level;
+    document.getElementById("historyXpEarnedText").innerText = xpEarned;
+    document.getElementById("historyNextLevelXPText").innerText =
+        (level * XP_PER_LEVEL) + " XP";
+
+    const xpRemaining = (level * XP_PER_LEVEL) - totalXP;
+
+    document.getElementById("historyXpRemainingText").innerText =
+        `${xpRemaining} XP to next level`;
+
+    const xpFill = document.getElementById("historyXpFill");
+    const xpText = document.getElementById("historyCurrentXPText");
+    const xpPercent = document.getElementById("historyXpPercent");
+
+    // RESET
+    xpFill.style.transition = "none";
+    xpFill.style.width = "0%";
+    xpText.innerText = totalXP + " XP";
+    xpPercent.innerText = "0%";
+
+    xpFill.getBoundingClientRect();
+
+    // START ANIMATION
+    setTimeout(() => {
+        xpFill.style.transition = "width 1s ease";
+        xpFill.style.width = progressPercent + "%";
+        xpPercent.innerText = progressPercent + "%";
+    }, 50);
+
+    // NUMBER ANIMATION
+    const duration = 1000;
+    const steps = 60;
+    const increment = xpEarned / steps;
+
+    let step = 0;
+    let xpCounter = totalXP - xpEarned;
+
+    xpInterval = setInterval(() => {
+        step++;
+        xpCounter += increment;
+
+        if (step >= steps) {
+            clearInterval(xpInterval);
+            xpInterval = null;
+            xpCounter = totalXP;
+        }
+
+        xpText.innerText = Math.floor(xpCounter) + " XP";
+    }, duration / steps);
+}
+
+function closeProgressModal(){
+    document.getElementById("progressModal")
+        .classList.add("hidden");
+}
+
+function buildExplanation(text) {
+
+    return `
+        <div class="explanation-card">
+
+            <div class="explanation-header">
+                <i class="fa-solid fa-lightbulb"></i>
+                Explanation
+            </div>
+
+            <div class="explanation-body">
+                ${escapeHTML(text || "No explanation available.")}
+            </div>
+
+        </div>
+    `;
+}
+function closeExplanation() {
+
+    const modal = document.getElementById("explainModal");
+
+    if (!modal) return;
+
+    modal.classList.add("hidden");
+
+    document.body.style.overflow = "auto";
+
+}
+document.addEventListener("click", function (e) {
+
+    const modal = document.getElementById("explainModal");
+
+    if (!modal || modal.classList.contains("hidden")) return;
+
+    const box = modal.querySelector(".modal-box");
+
+    if (!box) return;
+
+    // ONLY close if clicking OUTSIDE modal box
+    if (!box.contains(e.target) && e.target.id === "explainModal") {
+        closeExplanation();
+    }
+});
+document.addEventListener("keydown", function (e) {
+
+    if (e.key === "Escape") {
+        closeExplanation();
+    }
+});
+function toggleAnalytics(id, btn) {
+
+    const box = document.getElementById(id);
+
+    box.classList.toggle("show-analytics");
+    btn.classList.toggle("active");
+}
+
+let loadingInterval;
+
+
+function showLoading(){
+
+    const modal =
+        document.getElementById("loadingModal");
+
+    const fill =
+        document.getElementById("progressFill");
+
+    const text =
+        document.getElementById("progressText");
+
+    modal.classList.remove("hidden");
+
+    let progress = 0;
+
+    fill.style.width = "0%";
+    text.innerText = "0%";
+
+    loadingInterval = setInterval(() => {
+
+        progress += Math.floor(Math.random() * 12);
+
+        if (progress >= 95) {
+            progress = 95;
+        }
+
+        fill.style.width = progress + "%";
+        text.innerText = progress + "%";
+
+    }, 200);
+}
+
+function hideLoading(){
+
+    clearInterval(loadingInterval);
+
+    document.getElementById("progressFill")
+        .style.width = "100%";
+
+    document.getElementById("progressText")
+        .innerText = "100%";
+
+    setTimeout(() => {
+
+        document
+            .getElementById("loadingModal")
+            .classList.add("hidden");
+
+    }, 300);
+}
+</script>
+
+</body>
+</html>
